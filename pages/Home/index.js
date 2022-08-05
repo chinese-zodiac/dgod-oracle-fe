@@ -59,86 +59,86 @@ function Home() {
       </div>
       <h3 className="is-size-3 m-3">Global Oracle Analysis</h3>
       <div className="columns is-centered is-multiline pl-5 pr-5 mb-5">
-        <div className="column is-inline-block p-5 m-2 is-narrow" style={{border:"solid 2px white",borderRadius:"1em",whiteSpace:"nowrap"}}>
-          <span className="is-size-2">$0.00k</span><br/>
-          <span>DOGE payouts to DGOD holders</span>
+        <div className="stat stat-2">
+          <span className="stat-title">$0.00k</span>
+          <span className="stat-content">DOGE total payouts</span>
         </div>
-        <div className="column is-inline-block p-5 m-2 is-narrow" style={{border:"solid 2px white",borderRadius:"1em",whiteSpace:"nowrap"}}>
-          <span className="is-size-2">0.00m</span><br/>
-          <span>DOGE payout quantity</span>
+        <div className="stat stat-2">
+          <span className="stat-title">0.00m</span>
+          <span className="stat-content">DOGE payout quantity</span>
         </div>
-        <div className="column is-inline-block p-5 m-2 is-narrow" style={{border:"solid 2px white",borderRadius:"1em",whiteSpace:"nowrap"}}>
-          <span className="is-size-2">$0.00k</span><br/>
-          <span>DGOD burned since launch</span>
+        <div className="stat stat-1">
+          <span className="stat-title">00.00%</span>
+          <span className="stat-content">Price Floor increase</span>
         </div>
-        <div className="column is-inline-block p-5 m-2 is-narrow" style={{border:"solid 2px white",borderRadius:"1em",whiteSpace:"nowrap"}}>
-          <span className="is-size-2">0.00m</span><br/>
-          <span>DGOD burned today</span>
+        <div className="stat stat-1">
+          <span className="stat-title">$0.00</span>
+          <span className="stat-content">Current DGOD floor</span>
         </div>
-        <div className="column is-inline-block p-5 m-2 is-narrow" style={{border:"solid 2px white",borderRadius:"1em",whiteSpace:"nowrap"}}>
-          <span className="is-size-2">00.00%</span><br/>
-          <span>APR in DOGE for holding DGOD</span>
+        <div className="stat stat-1">
+          <span className="stat-title">00.00%</span>
+          <span className="stat-content">DGOD price increase</span>
         </div>
-        <div className="column is-inline-block p-5 m-2 is-narrow" style={{border:"solid 2px white",borderRadius:"1em",whiteSpace:"nowrap"}}>
-          <span className="is-size-2">00.00%</span><br/>
-          <span>Increase in DGOD price floor</span>
+        <div className="stat stat-1">
+          <span className="stat-title">$0.00</span>
+          <span className="stat-content">Current DGOD price</span>
         </div>
-        <div className="column is-inline-block p-5 m-2 is-narrow" style={{border:"solid 2px white",borderRadius:"1em",whiteSpace:"nowrap"}}>
-          <span className="is-size-2">$0.00</span><br/>
-          <span>Current DGOD  floor</span>
+        <div className="stat">
+          <span className="stat-title">$0.00k</span>
+          <span className="stat-content">DGOD burned since launch</span>
         </div>
-        <div className="column is-inline-block p-5 m-2 is-narrow" style={{border:"solid 2px white",borderRadius:"1em",whiteSpace:"nowrap"}}>
-          <span className="is-size-2">00.00%</span><br/>
-          <span>Increase in DGOD price</span>
+        <div className="stat">
+          <span className="stat-title">0.00m</span>
+          <span className="stat-content">DGOD burned today</span>
         </div>
-        <div className="column is-inline-block p-5 m-2 is-narrow" style={{border:"solid 2px white",borderRadius:"1em",whiteSpace:"nowrap"}}>
-          <span className="is-size-2">$0.00</span><br/>
-          <span>Current DGOD price</span>
+        <div className="stat">
+          <span className="stat-title">00.00%</span>
+          <span className="stat-content">APR in DOGE for holding DGOD</span>
         </div>
-        <div className="column is-inline-block p-5 m-2 is-narrow" style={{border:"solid 2px white",borderRadius:"1em",whiteSpace:"nowrap"}}>
-          <span className="is-size-2">00.00%</span><br/>
-          <span>Percent of marketcap backed by liquidity</span>
+        <div className="stat">
+          <span className="stat-title">00.00%</span>
+          <span className="stat-content">Percent of marketcap backed by liquidity</span>
         </div>
-        <div className="column is-inline-block p-5 m-2 is-narrow" style={{border:"solid 2px white",borderRadius:"1em",whiteSpace:"nowrap"}}>
-          <span className="is-size-2">$0.00k</span><br/>
-          <span>DGOD marketcap</span>
+        <div className="stat">
+          <span className="stat-title">$0.00k</span>
+          <span className="stat-content">DGOD marketcap</span>
         </div>
-        <div className="column is-inline-block p-5 m-2 is-narrow" style={{border:"solid 2px white",borderRadius:"1em",whiteSpace:"nowrap"}}>
-          <span className="is-size-2">0.00m</span><br/>
-          <span>DOGE to distribute today</span>
+        <div className="stat">
+          <span className="stat-title">0.00m</span>
+          <span className="stat-content">DOGE to distribute today</span>
         </div>
       </div>
         <h3 className="is-size-3 m-3 mt-5">Wallet Oracle Analysis</h3>
           
-      <div className="columns is-centered is-multiline pl-5 pr-5 mb-5">
-        <div className="column is-inline-block p-5 m-2 is-narrow" style={{border:"solid 2px white",borderRadius:"1em",whiteSpace:"nowrap"}}>
-          <span className="is-size-2">0.00m</span><br/>
-          <span>Your held DOGE</span>
+      <div className="columns is-vcentered is-centered is-multiline pl-5 pr-5 mb-5">
+        <div className="stat">
+          <span className="stat-title">0.00m</span>
+          <span className="stat-content">Your held DOGE</span>
         </div>
-        <div className="column is-inline-block p-5 m-2 is-narrow" style={{border:"solid 2px white",borderRadius:"1em",whiteSpace:"nowrap"}}>
-          <span className="is-size-2">0.00m</span><br/>
-          <span>Your held DGOD</span>
+        <div className="stat">
+          <span className="stat-title">0.00m</span>
+          <span className="stat-content">Your held DGOD</span>
         </div>
-        <div className="column is-inline-block p-5 m-2 is-narrow" style={{border:"solid 2px white",borderRadius:"1em",whiteSpace:"nowrap"}}>
-          <span className="is-size-2">0.00m</span><br/>
-          <span>Your total DOGE earned</span>
+        <div className="stat">
+          <span className="stat-title">0.00m</span>
+          <span className="stat-content">Your total DOGE earned</span>
         </div>
-        <div className="column is-inline-block p-5 m-2 is-narrow" style={{border:"solid 2px white",borderRadius:"1em",whiteSpace:"nowrap"}}>
-          <span className="is-size-2">0.00m</span><br/>
-          <span>Your estimated DOGE per day</span>
+        <div className="stat">
+          <span className="stat-title">0.00m</span>
+          <span className="stat-content">Your estimated DOGE per day</span>
         </div>
-        <div className="column is-inline-block p-5 m-2 is-narrow" style={{border:"solid 2px white",borderRadius:"1em",whiteSpace:"nowrap",position:"relative"}}>
-          <span className="is-size-2">0.00m</span><br/>
-          <span>Your Pending DOGE Rewards</span><br/>
+        <div className="stat">
+          <span className="stat-title">0.00m</span>
+          <span className="stat-content">Your Pending DOGE Rewards</span>
           <button className='button is-rounded mt-1 is-small' style={{maxWidth:"10em", position:"absolute",bottom:"-0.8em", right:"3em"}}>Manual Claim</button>
         </div>
-        <div className="column is-inline-block p-5 m-2 is-narrow" style={{border:"solid 2px white",borderRadius:"1em",whiteSpace:"nowrap",position:"relative"}}>
-          <span className="is-size-2">0.00m</span><br/>
-          <span>Your Vesting DGOD</span><br/>
+        <div className="stat">
+          <span className="stat-title">0.00m</span>
+          <span className="stat-content">Your Vesting DGOD</span>
         </div>
-        <div className="column is-inline-block p-5 m-2 is-narrow" style={{border:"solid 2px white",borderRadius:"1em",whiteSpace:"nowrap",position:"relative"}}>
-          <span className="is-size-2">00d00m00s</span><br/>
-          <span>Next DGOD Vest Unlock</span><br/>
+        <div className="stat">
+          <span className="stat-title">00d00m00s</span>
+          <span className="stat-content">Next DGOD Vest Unlock</span>
           <button className='button is-rounded mt-1 is-small' style={{maxWidth:"10em", position:"absolute",bottom:"-0.8em", right:"3em"}}>Withdraw</button>
         </div>
 
