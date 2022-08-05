@@ -20,7 +20,7 @@ function Footer() {
         v0.1.4
       </p>
       <p>
-        AS WITH ANY BLOCKCHAIN PROJECT: <b>Do your own research before buying DGOD.</b><br/>
+        AS WITH ANY BLOCKCHAIN PROJECT: <b>Do your own research before using this website or buying DGOD.</b><br/>
         Nothing on this site or on related channels should be considered a promise by anyone, including but not limited to the developers and promoters of this site, to perform work to generate profits for anyone including but not limited to the following: the users of this site; DogeGod community members; CZodiac community members; DGOD holders; or anyone using any of the sites, smart contracts, social media channels, and any other media or tech related to DGOD, DogeCoin, and CZodiac or any of the community members. 
         Dogegod.io, DGOD, CZodiac, and related technologies plus media are all experimental and must be used according to your personal financial situation and risk profile. 
         <br/><br/>There are no guarantees of profits, but the smart contracts are guaranteed to deliver Dogecoin to DGOD holders as written on the BSC blockchain.
