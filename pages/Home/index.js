@@ -12,6 +12,7 @@ import LogoReflect from '../../public/static/assets/images/logoreflect.png';
 import DggMascot from '../../public/static/assets/images/Refined Mascot Full.png';
 import PoweredByCz from '../../public/static/assets/images/poweredbycz.png';
 import BackgroundImage from '../../public/static/assets/images/bg.jpg';
+import OracleBanner from '../../public/static/assets/images/oracleBanner.png';
 import TopVideo from '../../public/static/assets/vids/bgv3.mp4';
 import { shortenAddress, useLookupAddress} from '@usedapp/core'
 import IERC20Abi from "../../abi/IERC20.json";
@@ -47,7 +48,7 @@ function Home() {
 
   return (<>
     <section id="top" className="hero has-text-centered">
-      <div className="m-0 mb-5 p-0" style={{position:"relative",width:"100%",height:"7.5em"}}>
+      <div className="m-0 p-0" style={{position:"relative",width:"100%",height:"7.5em"}}>
         <video autoPlay loop muted style={{position:"absolute",objectFit:"cover",minWidth:"1920px",width:"100vw",left:"50%",top:"0",maxHeight:"7.5em",transform: "translateX(-50%)", backgroundColor:"rgb(50,50,50)"}}>
           <source src={TopVideo} type="video/mp4" />
         </video>
@@ -57,7 +58,8 @@ function Home() {
           <span className="mt-0 is-inline-block has-text-left" style={{width:"11em"}}>Wallet: {!!account ? shortenAddress(account) : "..."}</span>
         </p>
       </div>
-      <h3 className="is-size-3 m-3">Global Oracle Analysis</h3>
+      <div className="m-0 " style={{background:"linear-gradient(301deg, rgba(1,31,23,1) 0%, rgba(5,24,40,1) 100%)",paddingBottom:"5em",paddingTop:"1em"}}>
+      <img style={{maxWidth:"480px",width:"100vw",marginLeft:"auto",marginRight:"auto"}} src={OracleBanner} />
       <div className="columns is-centered is-vcentered is-multiline pl-2 pr-2 mb-5">
         <div className="stat stat-2">
           <span className="stat-title">$0.00k</span>
@@ -108,7 +110,7 @@ function Home() {
           <span className="stat-content">DOGE rewards today</span>
         </div>
       </div>
-        <h3 className="is-size-3 m-3 mt-5">Wallet Oracle Analysis</h3>
+        <h3 className="is-size-3 m-3 mt-5">WALLET <span style={{color:"#FFCB16"}}>ANALYSIS</span></h3>
           
       <div className="columns is-vcentered is-centered is-multiline pl-5 pr-5 mb-5">
         <div className="stat stat-2">
@@ -142,6 +144,7 @@ function Home() {
           <button className='button is-rounded mt-1 is-small is-dark' style={{maxWidth:"10em", position:"absolute",bottom:"-1.5em", right:"0em",backgroundColor:"rgba(0,10,40,1)",border:"solid #126a85 2px"}}>Withdraw</button>
         </div>
 
+      </div>
       </div>
     </section>
     
