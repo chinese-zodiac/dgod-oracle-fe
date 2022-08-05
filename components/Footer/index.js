@@ -1,0 +1,32 @@
+import React from 'react';
+import { SOCIAL_TWITTER, SOCIAL_TELEGRAM, SOCIAL_GITHUB} from '../../constants/social';
+import PoweredByCz from '../../public/static/assets/images/poweredbycz.png';
+
+function Footer() {
+    return(<footer id="footer" className="footer pb-7" style={{position:"relative"}}>
+    <div className="content has-text-centered">
+      <div>
+        <a className="m-2" href={SOCIAL_TELEGRAM} target="_blank">
+          <span className="icon"><i className="fa-brands fa-telegram"></i></span>
+        </a>
+        <a className="m-2" href={SOCIAL_TWITTER} target="_blank">
+          <span className="icon"><i className="fa-brands fa-twitter"></i></span>
+        </a>
+        <a className="m-2" href={SOCIAL_GITHUB} target="_blank">
+          <span className="icon"><i className="fa-brands fa-github"></i></span>
+        </a>
+      </div>  
+      <p className='pb-6'>
+        v0.1.0
+      </p>
+      <p>
+        AS WITH ANY BLOCKCHAIN PROJECT: <b>Do your own research before buying DGOD.</b><br/>
+        Nothing on this site or on related channels should be considered a promise by anyone, including but not limited to the developers and promoters of this site, to perform work to generate profits for anyone including but not limited to the following: the users of this site; DogeGod community members; CZodiac community members; DGOD holders; or anyone using any of the sites, smart contracts, social media channels, and any other media or tech related to DGOD, DogeCoin, and CZodiac or any of the community members. 
+        Dogegod.io, DGOD, CZodiac, and related technologies plus media are all experimental and must be used according to your personal financial situation and risk profile. 
+        <br/><br/>There are no guarantees of profits, but the smart contracts are guaranteed to deliver Dogecoin to DGOD holders as written on the BSC blockchain.
+      </p>
+    </div>
+  </footer>);
+}
+
+export default Footer;

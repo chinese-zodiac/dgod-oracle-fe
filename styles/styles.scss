@@ -1,0 +1,92 @@
+@import "./theme";
+
+html{
+  background-color: $background;
+}
+body{
+  background-color: $background;
+  color:white;
+}
+
+.full-width {
+  width: 100%;
+}
+.full-height {
+  height: 100vh;
+}
+.full-height-min {
+  min-height: 100vh;
+}
+.text-center {
+  text-align: center;
+}
+
+.flex-vertical-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.is-secondary, .hero.is-dark a.is-secondary {
+  color:$secondary !important;
+}
+a.is-secondary{
+  background-color:rgba(51, 4, 4, 0);
+  &:hover{
+    background-color:rgba(51, 4, 4, 0.02);
+
+  }
+}
+
+.footer {
+  background-color: $background;
+  .content a{
+  color:$primary;
+}
+
+}
+
+.image img{
+  max-width:750px;
+}
+
+.image-ontop{
+  height:0px;
+  overflow: visible;
+}
+
+.is-cursive{
+  font-family:$family-cursive;
+  font-weight:lighter;
+}
+
+.has-background-gradient{
+  background: rgb(238,238,233);
+  background: linear-gradient(190deg, rgba(238,238,233,1) 0%, rgba(228,226,222,1) 100%); ;
+}
+.has-background-gradient.is-dark{
+  background: rgb(40,36,30);
+background: linear-gradient(190deg, rgba(40,36,30,1) 0%, rgba(42,34,32,1) 100%);
+}
+
+button.is-rounded, a.button.is-rounded{
+  padding-top:0.55em;
+  //box-shadow: 1px 1px 0px #333;
+}
+
+.has-background-transparent{
+  background-color:transparent;
+}
+
+.background-video{
+  object-fit: cover;
+  height:100vh;
+  width:100vw;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index:0;
+}
