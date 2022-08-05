@@ -31,7 +31,7 @@ class MyApp extends App {
     return (
       <DAppProvider config={config}>
           <Head>
-            <title>DogeGod Oracle | Earn DGOD every second for life.</title>
+            <title>DogeGod Oracle | Earn DOGE every second for life.</title>
             <meta name="description" content= "#DogeGod, the greenest source of #Dogecoin on the planet. Come and join to the #GreenDoge revolution." />
             <meta name="robots" content= "index, follow"></meta>
             <meta property="og:locale" content="en_EN"/>
@@ -42,7 +42,7 @@ class MyApp extends App {
               href={Favicon}
             />
               
-            <meta property="og:title" content="DogeGod Oracle | Earn DGOD every second for life." />
+            <meta property="og:title" content="DogeGod Oracle | Earn DOGE every second for life." />
             <meta property="og:site_name" content="DogeGod" />
             <meta property="og:url" content="https://dogegod.io" />
             <meta property="og:description" content="#DogeGod, the greenest source of #Dogecoin on the planet. Come and join to the #GreenDoge revolution." />
@@ -53,7 +53,7 @@ class MyApp extends App {
 
             <meta name="twitter:card" content="summary_large_image"/>
             <meta name="twitter:site" content="https://dogegod.io" />
-            <meta name="twitter:title" content="DogeGod Oracle | Earn DGOD every second for life."/>
+            <meta name="twitter:title" content="DogeGod Oracle | Earn DOGE every second for life."/>
             <meta name="twitter:image" content={"https://sale.dogegod.io"+OpenGraphImg} />
             <meta name="twitter:image:width" content="1200"/>
             <meta name="twitter:image:height" content="630"/>
