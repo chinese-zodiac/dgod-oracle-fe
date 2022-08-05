@@ -58,7 +58,7 @@ function Home() {
         </p>
       </div>
       <h3 className="is-size-3 m-3">Global Oracle Analysis</h3>
-      <div className="columns is-centered is-multiline pl-5 pr-5 mb-5">
+      <div className="columns is-centered is-vcentered is-multiline pl-5 pr-5 mb-5">
         <div className="stat stat-2">
           <span className="stat-title">$0.00k</span>
           <span className="stat-content">DOGE total payouts</span>
