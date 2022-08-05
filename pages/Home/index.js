@@ -81,6 +81,14 @@ function Home() {
         </div>
         <div className="column is-inline-block p-5 m-2 is-narrow" style={{border:"solid 2px white",borderRadius:"1em",whiteSpace:"nowrap"}}>
           <span className="is-size-2">$0.00</span><br/>
+          <span>Current DGOD  floor</span>
+        </div>
+        <div className="column is-inline-block p-5 m-2 is-narrow" style={{border:"solid 2px white",borderRadius:"1em",whiteSpace:"nowrap"}}>
+          <span className="is-size-2">00.00%</span><br/>
+          <span>Increase in DGOD price</span>
+        </div>
+        <div className="column is-inline-block p-5 m-2 is-narrow" style={{border:"solid 2px white",borderRadius:"1em",whiteSpace:"nowrap"}}>
+          <span className="is-size-2">$0.00</span><br/>
           <span>Current DGOD price</span>
         </div>
         <div className="column is-inline-block p-5 m-2 is-narrow" style={{border:"solid 2px white",borderRadius:"1em",whiteSpace:"nowrap"}}>
