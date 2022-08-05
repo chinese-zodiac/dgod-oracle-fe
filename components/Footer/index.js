@@ -3,7 +3,7 @@ import { SOCIAL_TWITTER, SOCIAL_TELEGRAM, SOCIAL_GITHUB} from '../../constants/s
 import PoweredByCz from '../../public/static/assets/images/poweredbycz.png';
 
 function Footer() {
-    return(<footer id="footer" className="footer pb-7" style={{position:"relative"}}>
+    return(<footer id="footer" className="footer pb-7 mt-5" style={{position:"relative"}}>
     <div className="content has-text-centered">
       <div>
         <a className="m-2" href={SOCIAL_TELEGRAM} target="_blank">
