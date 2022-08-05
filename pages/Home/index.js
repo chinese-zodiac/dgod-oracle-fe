@@ -12,7 +12,7 @@ import LogoReflect from '../../public/static/assets/images/logoreflect.png';
 import DggMascot from '../../public/static/assets/images/Refined Mascot Full.png';
 import PoweredByCz from '../../public/static/assets/images/poweredbycz.png';
 import BackgroundImage from '../../public/static/assets/images/bg.jpg';
-import TopVideo from '../../public/static/assets/vids/bgv2.mp4';
+import TopVideo from '../../public/static/assets/vids/bgv3.mp4';
 import { shortenAddress, useLookupAddress} from '@usedapp/core'
 import IERC20Abi from "../../abi/IERC20.json";
 import DgodAbi from "../../abi/Dgod.json";
@@ -48,7 +48,7 @@ function Home() {
   return (<>
     <section id="top" className="hero has-text-centered">
       <div className="m-0 mb-5 p-0" style={{position:"relative",width:"100%",height:"7.5em"}}>
-        <video autoPlay loop muted style={{position:"absolute",objectFit:"cover",width:"100vw",left:"0",top:"0",maxHeight:"7.5em", backgroundColor:"rgb(50,50,50)"}}>
+        <video autoPlay loop muted style={{position:"absolute",objectFit:"cover",minWidth:"1920px",width:"100vw",left:"50%",top:"0",maxHeight:"7.5em",transform: "translateX(-50%)", backgroundColor:"rgb(50,50,50)"}}>
           <source src={TopVideo} type="video/mp4" />
         </video>
         <Web3ModalButton className="mt-5 mb-5" />
