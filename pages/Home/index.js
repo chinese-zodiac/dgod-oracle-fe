@@ -130,7 +130,7 @@ function Home() {
         <div className="stat">
           <span className="stat-title">0.00m</span>
           <span className="stat-content">Your Pending DOGE Rewards</span>
-          <button className='button is-rounded mt-1 is-small' style={{maxWidth:"10em", position:"absolute",bottom:"-1.5em", right:"0em"}}>Manual Claim</button>
+          <button className='button is-rounded mt-1 is-small is-dark' style={{maxWidth:"10em", position:"absolute",bottom:"-1.5em", right:"0em",backgroundColor:"rgba(0,10,40,1)",border:"solid #126a85 2px"}}>Manual Claim</button>
         </div>
         <div className="stat">
           <span className="stat-title">0.00m</span>
@@ -139,7 +139,7 @@ function Home() {
         <div className="stat">
           <span className="stat-title">00d00m00s</span>
           <span className="stat-content">Next DGOD Vest Unlock</span>
-          <button className='button is-rounded mt-1 is-small' style={{maxWidth:"10em", position:"absolute",bottom:"-1.5em", right:"0em"}}>Withdraw</button>
+          <button className='button is-rounded mt-1 is-small is-dark' style={{maxWidth:"10em", position:"absolute",bottom:"-1.5em", right:"0em",backgroundColor:"rgba(0,10,40,1)",border:"solid #126a85 2px"}}>Withdraw</button>
         </div>
 
       </div>
