@@ -74,12 +74,12 @@ function Home() {
           <span className="stat-content">DGOD price</span>
         </div>
         <div className="stat stat-1">
-          <span className="stat-title">$0.00</span>
-          <span className="stat-content">DGOD floor</span>
-        </div>
-        <div className="stat stat-1">
           <span className="stat-title">00.00%</span>
           <span className="stat-content">DGOD price increase</span>
+        </div>
+        <div className="stat stat-1">
+          <span className="stat-title">$0.00</span>
+          <span className="stat-content">DGOD floor</span>
         </div>
         <div className="stat stat-1">
           <span className="stat-title">00.00%</span>
