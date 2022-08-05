@@ -61,19 +61,19 @@ function Home() {
       <div className="columns is-centered is-vcentered is-multiline pl-5 pr-5 mb-5">
         <div className="stat stat-2">
           <span className="stat-title">$0.00k</span>
-          <span className="stat-content">DOGE total payouts</span>
+          <span className="stat-content">DOGE payouts total</span>
         </div>
         <div className="stat stat-2">
           <span className="stat-title">0.00m</span>
-          <span className="stat-content">DOGE payout quantity</span>
+          <span className="stat-content">DOGE payouts total quantity</span>
         </div>
         <div className="stat stat-1">
           <span className="stat-title">00.00%</span>
-          <span className="stat-content">Price Floor increase</span>
+          <span className="stat-content">Floor increase</span>
         </div>
         <div className="stat stat-1">
           <span className="stat-title">$0.00</span>
-          <span className="stat-content">Current DGOD floor</span>
+          <span className="stat-content">DGOD floor</span>
         </div>
         <div className="stat stat-1">
           <span className="stat-title">00.00%</span>
@@ -81,11 +81,11 @@ function Home() {
         </div>
         <div className="stat stat-1">
           <span className="stat-title">$0.00</span>
-          <span className="stat-content">Current DGOD price</span>
+          <span className="stat-content">DGOD price</span>
         </div>
         <div className="stat">
           <span className="stat-title">$0.00k</span>
-          <span className="stat-content">DGOD burned since launch</span>
+          <span className="stat-content">DGOD total burned</span>
         </div>
         <div className="stat">
           <span className="stat-title">0.00m</span>
@@ -93,19 +93,19 @@ function Home() {
         </div>
         <div className="stat">
           <span className="stat-title">00.00%</span>
-          <span className="stat-content">APR in DOGE for holding DGOD</span>
+          <span className="stat-content">DGOD APR</span>
         </div>
         <div className="stat">
           <span className="stat-title">00.00%</span>
-          <span className="stat-content">Percent of marketcap backed by liquidity</span>
+          <span className="stat-content">Liq % of MC</span>
         </div>
         <div className="stat">
           <span className="stat-title">$0.00k</span>
-          <span className="stat-content">DGOD marketcap</span>
+          <span className="stat-content">DGOD MC</span>
         </div>
         <div className="stat">
           <span className="stat-title">0.00m</span>
-          <span className="stat-content">DOGE to distribute today</span>
+          <span className="stat-content">DOGE rewards today</span>
         </div>
       </div>
         <h3 className="is-size-3 m-3 mt-5">Wallet Oracle Analysis</h3>
@@ -117,7 +117,7 @@ function Home() {
         </div>
         <div className="stat stat-2">
           <span className="stat-title">0.00m</span>
-          <span className="stat-content">Your estimated DOGE per day</span>
+          <span className="stat-content">Your DOGE per day</span>
         </div>
         <div className="stat stat-1">
           <span className="stat-title">0.00m</span>
