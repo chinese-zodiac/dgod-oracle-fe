@@ -64,6 +64,10 @@ function Home() {
           <span>DOGE payouts to DGOD holders</span>
         </div>
         <div className="column is-inline-block p-5 m-2 is-narrow" style={{border:"solid 2px white",borderRadius:"1em",whiteSpace:"nowrap"}}>
+          <span className="is-size-2">0.00m</span><br/>
+          <span>DOGE payout quantity</span>
+        </div>
+        <div className="column is-inline-block p-5 m-2 is-narrow" style={{border:"solid 2px white",borderRadius:"1em",whiteSpace:"nowrap"}}>
           <span className="is-size-2">$0.00k</span><br/>
           <span>DGOD burned since launch</span>
         </div>
