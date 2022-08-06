@@ -8,7 +8,7 @@ import {useCoingeckoPrice } from '@usedapp/coingecko';
 import { utils, Contract, constants } from 'ethers';
 import useCountdown from "../../hooks/useCountdown";
 import useCurrentEpoch from "../../hooks/useCurrentEpoch";
-import OracleBanner from '../../public/static/assets/images/oracleBannerV2.png';
+import OracleBanner from '../../public/static/assets/images/oracle-BannerV2.png';
 import TopVideo from '../../public/static/assets/vids/bgv3.mp4';
 import { shortenAddress, useLookupAddress} from '@usedapp/core'
 import IERC20Abi from "../../abi/IERC20.json";
