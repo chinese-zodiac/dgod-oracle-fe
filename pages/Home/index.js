@@ -3,15 +3,11 @@ import React, { Component, useState, useEffect } from 'react';
 import Web3ModalButton from '../../components/Web3ModalButton';
 import Footer from '../../components/Footer';
 import "./index.module.scss";
-import { useEthers, useContractFunction, useCall, useTokenBalance, useTokenAllowance, useEtherBalance  } from '@usedapp/core'
+import { useEthers, useToken, useContractFunction, useCall, useTokenBalance, useTokenAllowance, useEtherBalance  } from '@usedapp/core'
 import {useCoingeckoPrice } from '@usedapp/coingecko';
-import { utils, Contract, constants } from 'ethers'
+import { utils, Contract, constants } from 'ethers';
 import useCountdown from "../../hooks/useCountdown";
-import DggLogo from '../../public/static/assets/logo.png';
-import LogoReflect from '../../public/static/assets/images/logoreflect.png';
-import DggMascot from '../../public/static/assets/images/Refined Mascot Full.png';
-import PoweredByCz from '../../public/static/assets/images/poweredbycz.png';
-import BackgroundImage from '../../public/static/assets/images/bg.jpg';
+import useCurrentEpoch from "../../hooks/useCurrentEpoch";
 import OracleBanner from '../../public/static/assets/images/oracleBannerV2.png';
 import TopVideo from '../../public/static/assets/vids/bgv3.mp4';
 import { shortenAddress, useLookupAddress} from '@usedapp/core'
@@ -20,7 +16,8 @@ import DgodAbi from "../../abi/Dgod.json";
 import DgodLockAbi from "../../abi/Dgod.json";
 import AutoRewardPoolAbi from "../../abi/AutoRewardPool.json";
 import { SOCIAL_TWITTER, SOCIAL_TELEGRAM, SOCIAL_GITHUB} from '../../constants/social';
-import {  ADDRESS_DOGE, ADDRESS_DGOD, ADDRESS_AUTO_REWARD_POOL, ADDRESS_DGOD_LOCK, ADDRESS_DGODCZUSD_PAIR} from '../../constants/addresses';
+import {weiToShortString, weiToFixed, weiToUsdWeiVal, toShortString} from '../../utils/bnDisplay';
+import {  ADDRESS_DOGE, ADDRESS_DGOD, ADDRESS_AUTO_REWARD_POOL, ADDRESS_DGOD_LOCK, ADDRESS_DGODCZUSD_PAIR, ADDRESS_CZUSD} from '../../constants/addresses';
 const { formatEther, parseEther, Interface } = utils;
 
 const DgodInterface = new Interface(DgodAbi);
@@ -40,11 +37,47 @@ const CONTRACT_DGODCZUSD_PAIR = new Contract(ADDRESS_DGODCZUSD_PAIR,Ierc20Interf
 
 const displayWad = (wad)=>!!wad ? Number(formatEther(wad)).toFixed(2) : "...";
 
+const INITIAL_DGOD_PRICE = "0.000008043";
+const INITIAL_DGOD_PRICE_FLOOR = "0.000005002";
+
 function Home() {
   
   const { account, chainId } = useEthers();
-  console.log(chainId)
+
+  const dgodInfo = useToken(ADDRESS_DGOD);
   
+  const accDogeBal = useTokenBalance(ADDRESS_DOGE, account);
+  const accDgodBal = useTokenBalance(ADDRESS_DGOD, account);
+  const lpCzusdBal = useTokenBalance(ADDRESS_CZUSD, ADDRESS_DGODCZUSD_PAIR);
+  const lpDgodBal = useTokenBalance(ADDRESS_DGOD, ADDRESS_DGODCZUSD_PAIR);
+  const czusdPrice = useCoingeckoPrice("czusd");
+  const dogePrice = useCoingeckoPrice("dogecoin");
+
+  
+  const currentEpoch = useCurrentEpoch();
+
+  const [dgodPrice,setDgodPrice] = useState("0");
+  const [dgodMcapWad,setDgodMcapWad] = useState(parseEther("0"));
+  const [dgodPriceFloor,setDgodPriceFloor] = useState("0");
+
+  useEffect(()=>{
+    if(!czusdPrice || !lpCzusdBal?.toString() || !lpDgodBal?.toString()){
+      setDgodPrice("0");
+      return;
+    }
+    const priceWad = lpCzusdBal.mul(parseEther(czusdPrice)).div(lpDgodBal);
+    setDgodPrice(formatEther(priceWad));
+
+  },[czusdPrice,lpCzusdBal?.toString(),lpDgodBal?.toString()])
+
+  useEffect(()=>{
+    if(!dgodPrice || !dgodInfo?.totalSupply?.toString()){
+      setDgodMcapWad(parseEther("0"));
+      return;
+    }
+    const mcapWad = dgodInfo.totalSupply.mul(parseEther(dgodPrice)).div(parseEther("1"));
+    setDgodMcapWad(mcapWad);
+  },[dgodPrice,dgodInfo?.totalSupply?.toString()])
 
 
   return (<>
@@ -79,19 +112,19 @@ function Home() {
           <span className="stat-content">Total Marketing</span>
         </div>
         <div className="stat stat-dgod">
-          <span className="stat-title">$0.00</span>
+          <span className="stat-title">${dgodPrice?.substring(0,10)}</span>
           <span className="stat-content">DogeGod Price</span>
         </div>
         <div className="stat stat-dgod">
-          <span className="stat-title">00.00%</span>
+          <span className="stat-title">+{weiToShortString(parseEther("100").mul(parseEther(dgodPrice)).div(parseEther(INITIAL_DGOD_PRICE)).sub(parseEther("100")),2)}%</span>
           <span className="stat-content">DogeGod % Increase</span>
         </div>
         <div className="stat stat-dgod">
-          <span className="stat-title">$0.00</span>
+          <span className="stat-title">${dgodPriceFloor?.substring(0,10)}</span>
           <span className="stat-content">DogeGod Floor Price</span>
         </div>
         <div className="stat stat-dgod">
-          <span className="stat-title">00.00%</span>
+          <span className="stat-title">+{weiToShortString(parseEther("100").mul(parseEther(dgodPriceFloor)).div(parseEther(INITIAL_DGOD_PRICE_FLOOR)).sub(parseEther("100")),2)}%</span>
           <span className="stat-content">Floor % Increase</span>
         </div>
         <div className="stat stat-dgod-small">
@@ -107,7 +140,7 @@ function Home() {
           <span className="stat-content">DogeGod APR</span>
         </div>
         <div className="stat stat-dgod-small">
-          <span className="stat-title">$0.00k</span>
+          <span className="stat-title">${weiToShortString(dgodMcapWad,2)}</span>
           <span className="stat-content">DogeGod MCAP</span>
         </div>
         <div className="stat stat-dgod-small">
@@ -138,7 +171,7 @@ function Home() {
           <span className="stat-content">Dogecoin Per Day</span>
         </div>
         <div className="stat stat-doge">
-          <span className="stat-title">0.00m</span>
+          <span className="stat-title">{weiToShortString(accDogeBal,2)}</span>
           <span className="stat-content">Dogecoin Held</span>
         </div>
         <div className="stat stat-doge-small">
@@ -147,7 +180,7 @@ function Home() {
           <button className='button is-rounded mt-1 is-small is-dark' style={{maxWidth:"10em", position:"absolute",bottom:"-1.5em", right:"0em",backgroundColor:"rgba(0,10,40,1)",border:"solid #126a85 2px"}}>Manual Claim</button>
         </div>
         <div className="stat stat-dgod">
-          <span className="stat-title">0.00m</span>
+          <span className="stat-title">{weiToShortString(accDgodBal,2)}</span>
           <span className="stat-content">DogeGod Held</span>
         </div>
         <div className="stat stat-dgod-small">
