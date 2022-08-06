@@ -6,6 +6,7 @@ import "./index.module.scss";
 import { useEthers, useToken, useContractFunction, useCall, useTokenBalance, useTokenAllowance, useEtherBalance  } from '@usedapp/core'
 import {useCoingeckoPrice } from '@usedapp/coingecko';
 import { utils, Contract, constants } from 'ethers';
+import useAutoRewardPool from "../../hooks/useAutoRewardPool";
 import useCountdown from "../../hooks/useCountdown";
 import useCurrentEpoch from "../../hooks/useCurrentEpoch";
 import OracleBanner from '../../public/static/assets/images/oracle-BannerV2.png';
@@ -16,8 +17,8 @@ import DgodAbi from "../../abi/Dgod.json";
 import DgodLockAbi from "../../abi/Dgod.json";
 import AutoRewardPoolAbi from "../../abi/AutoRewardPool.json";
 import { SOCIAL_TWITTER, SOCIAL_TELEGRAM, SOCIAL_GITHUB} from '../../constants/social';
-import {weiToShortString, weiToFixed, weiToUsdWeiVal, toShortString} from '../../utils/bnDisplay';
-import {  ADDRESS_DOGE, ADDRESS_DGOD, ADDRESS_AUTO_REWARD_POOL, ADDRESS_DGOD_LOCK, ADDRESS_DGODCZUSD_PAIR, ADDRESS_CZUSD} from '../../constants/addresses';
+import {weiToShortString, tokenAmtToShortString, weiToFixed, weiToUsdWeiVal, toShortString} from '../../utils/bnDisplay';
+import { ADDRESS_MARKETING, ADDRESS_DOGE, ADDRESS_DGOD, ADDRESS_AUTO_REWARD_POOL, ADDRESS_DGOD_LOCK, ADDRESS_DGODCZUSD_PAIR, ADDRESS_CZUSD} from '../../constants/addresses';
 const { formatEther, parseEther, Interface } = utils;
 
 const DgodInterface = new Interface(DgodAbi);
@@ -42,48 +43,61 @@ const INITIAL_DGOD_PRICE_FLOOR = "0.000005002";
 
 function Home() {
   
-  const { account, chainId } = useEthers();
+  const { account, library, chainId } = useEthers();
 
   const dgodInfo = useToken(ADDRESS_DGOD);
   
   const accDogeBal = useTokenBalance(ADDRESS_DOGE, account);
   const accDgodBal = useTokenBalance(ADDRESS_DGOD, account);
+  const marketingDogeBal = useTokenBalance(ADDRESS_DOGE, ADDRESS_MARKETING);
   const lpCzusdBal = useTokenBalance(ADDRESS_CZUSD, ADDRESS_DGODCZUSD_PAIR);
   const lpDgodBal = useTokenBalance(ADDRESS_DGOD, ADDRESS_DGODCZUSD_PAIR);
   const czusdPrice = useCoingeckoPrice("czusd");
   const dogePrice = useCoingeckoPrice("dogecoin");
 
-  
   const currentEpoch = useCurrentEpoch();
 
   const [dgodPrice,setDgodPrice] = useState("0");
   const [dgodMcapWad,setDgodMcapWad] = useState(parseEther("0"));
   const [dgodPriceFloor,setDgodPriceFloor] = useState("0");
+  const [dogeTotalPaidWad,setDogeTotalPaidWad] = useState(parseEther("0"));
+
+  const {
+    rewardPerSecond,
+    totalRewardsPaid,
+    combinedStakedBalance,
+    totalRewardsReceived,
+    pendingReward,
+    isAccountAutoClaim
+  } = useAutoRewardPool(library,account);
 
   useEffect(()=>{
-    if(!czusdPrice || !lpCzusdBal?.toString() || !lpDgodBal?.toString()){
+    if(!czusdPrice || !lpCzusdBal || !lpDgodBal){
       setDgodPrice("0");
       return;
     }
     const priceWad = lpCzusdBal.mul(parseEther(czusdPrice)).div(lpDgodBal);
     setDgodPrice(formatEther(priceWad));
 
-  },[czusdPrice,lpCzusdBal?.toString(),lpDgodBal?.toString()])
+  },[czusdPrice,lpCzusdBal?.toString(),lpDgodBal?.toString()]);
 
   useEffect(()=>{
-    if(!dgodPrice || !dgodInfo?.totalSupply?.toString()){
+    if(!dgodPrice || !dgodInfo?.totalSupply || !totalRewardsPaid){
       setDgodMcapWad(parseEther("0"));
+      setDogeTotalPaidWad(parseEther("0"));
       return;
     }
     const mcapWad = dgodInfo.totalSupply.mul(parseEther(dgodPrice)).div(parseEther("1"));
     setDgodMcapWad(mcapWad);
-  },[dgodPrice,dgodInfo?.totalSupply?.toString()])
+    const dogePaidUsdWad = totalRewardsPaid.mul(parseEther(dgodPrice)).div(parseEther("1"));
+    setDogeTotalPaidWad(dogePaidUsdWad);
+  },[dgodPrice,dgodInfo?.totalSupply?.toString(),totalRewardsPaid?.toString()]);
 
 
   return (<>
     <section id="top" className="hero has-text-centered">
       <div className="m-0 p-0" style={{position:"relative",width:"100%",height:"7.5em"}}>
-        <video autoPlay loop muted style={{position:"absolute",objectFit:"cover",minWidth:"1920px",width:"100vw",left:"50%",top:"0",maxHeight:"7.5em",transform: "translateX(-50%)", backgroundColor:"rgb(50,50,50)"}}>
+        <video preload="none" autoPlay loop muted style={{position:"absolute",objectFit:"cover",minWidth:"1920px",width:"100vw",left:"50%",top:"0",maxHeight:"7.5em",transform: "translateX(-50%)", backgroundColor:"rgb(50,50,50)"}}>
           <source src={TopVideo} type="video/mp4" />
         </video>
         <Web3ModalButton className="mt-5 mb-5" />
@@ -96,15 +110,15 @@ function Home() {
       <img style={{maxWidth:"480px",width:"100vw",marginLeft:"auto",marginRight:"auto"}} src={OracleBanner} />
       <div className="columns is-centered is-vcentered is-multiline pl-2 pr-2 mb-5">
         <div className="stat stat-doge">
-          <span className="stat-title">$0.00k</span>
+          <span className="stat-title">${weiToShortString(dogeTotalPaidWad,2)}</span>
           <span className="stat-content">Total Dogecoin Paid</span>
         </div>
         <div className="stat stat-doge">
-          <span className="stat-title">0.00m</span>
+          <span className="stat-title">{tokenAmtToShortString(totalRewardsPaid ?? 0,8,2)}</span>
           <span className="stat-content">Total Dogecoin Distributed</span>
         </div>
         <div className="stat stat-doge-small">
-          <span className="stat-title">0.00m</span>
+          <span className="stat-title">{tokenAmtToShortString(rewardPerSecond?.mul(86400) ?? 0,8,2)}</span>
           <span className="stat-content">Dogecoin Rewards Today</span>
         </div>
         <div className="stat stat-doge-small">
@@ -171,7 +185,7 @@ function Home() {
           <span className="stat-content">Dogecoin Per Day</span>
         </div>
         <div className="stat stat-doge">
-          <span className="stat-title">{weiToShortString(accDogeBal,2)}</span>
+          <span className="stat-title">{tokenAmtToShortString(accDogeBal,8,2)}</span>
           <span className="stat-content">Dogecoin Held</span>
         </div>
         <div className="stat stat-doge-small">
