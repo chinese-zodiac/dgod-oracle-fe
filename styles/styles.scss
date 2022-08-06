@@ -106,7 +106,7 @@ button.is-rounded, a.button.is-rounded{
   margin: 0.5rem;
   flex:none;
   width:unset;
-  border:solid 1px white;
+  border:solid 2px white;
   background-color: rgb(41, 34, 34);
   border-radius: 1em;
   white-space: nowrap;
@@ -123,10 +123,11 @@ button.is-rounded, a.button.is-rounded{
 
 }
 
-.stat.stat-1 {
+.stat.stat-dgod {
   border-width: 3px;
   padding:1.5rem;
-  background-color: rgb(0, 5, 40);
+  background-color: rgb(33, 68, 49);
+  border-color: rgb(161, 224, 189);
   span.stat-title {
     font-size:2.5rem;
   }
@@ -135,14 +136,25 @@ button.is-rounded, a.button.is-rounded{
   }
 }
 
-.stat.stat-2 {
+.stat.stat-doge {
   border-width: 3px;
   padding:1.5rem;
-  background-color: rgb(28, 79, 83);
+  background-color: rgb(97, 89, 57);
+  border-color: rgb(237, 209, 98);
   span.stat-title {
     font-size:2.5rem;
   }
   span.stat-content {
     font-size:1rem;
   }
+}
+
+.stat.stat-doge-small {
+  background-color: rgb(35, 34, 29);
+  border-color: rgb(237, 209, 98);
+}
+
+.stat.stat-dgod-small {
+  background-color: rgb(29, 35, 32);
+  border-color: rgb(161, 224, 189);
 }

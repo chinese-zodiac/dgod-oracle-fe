@@ -12,7 +12,7 @@ import LogoReflect from '../../public/static/assets/images/logoreflect.png';
 import DggMascot from '../../public/static/assets/images/Refined Mascot Full.png';
 import PoweredByCz from '../../public/static/assets/images/poweredbycz.png';
 import BackgroundImage from '../../public/static/assets/images/bg.jpg';
-import OracleBanner from '../../public/static/assets/images/oracleBanner.png';
+import OracleBanner from '../../public/static/assets/images/oracleBannerV2.png';
 import TopVideo from '../../public/static/assets/vids/bgv3.mp4';
 import { shortenAddress, useLookupAddress} from '@usedapp/core'
 import IERC20Abi from "../../abi/IERC20.json";
@@ -61,86 +61,89 @@ function Home() {
       <div className="m-0 " style={{background:"linear-gradient(301deg, rgba(1,31,23,1) 0%, rgba(5,24,40,1) 100%)",paddingBottom:"5em",paddingTop:"1em"}}>
       <img style={{maxWidth:"480px",width:"100vw",marginLeft:"auto",marginRight:"auto"}} src={OracleBanner} />
       <div className="columns is-centered is-vcentered is-multiline pl-2 pr-2 mb-5">
-        <div className="stat stat-2">
+        <div className="stat stat-doge">
           <span className="stat-title">$0.00k</span>
-          <span className="stat-content">DOGE payouts total</span>
+          <span className="stat-content">Total Dogecoin Paid</span>
         </div>
-        <div className="stat stat-2">
+        <div className="stat stat-doge">
           <span className="stat-title">0.00m</span>
-          <span className="stat-content">DOGE payouts total quantity</span>
+          <span className="stat-content">Total Dogecoin Distributed</span>
         </div>
-        <div className="stat stat-1">
+        <div className="stat stat-doge-small">
+          <span className="stat-title">0.00m</span>
+          <span className="stat-content">Dogecoin Rewards Today</span>
+        </div>
+        <div className="stat stat-dgod">
           <span className="stat-title">$0.00</span>
-          <span className="stat-content">DGOD price</span>
+          <span className="stat-content">DogeGod Price</span>
         </div>
-        <div className="stat stat-1">
+        <div className="stat stat-dgod">
           <span className="stat-title">00.00%</span>
-          <span className="stat-content">DGOD price increase</span>
+          <span className="stat-content">DogeGod % Increase</span>
         </div>
-        <div className="stat stat-1">
+        <div className="stat stat-dgod">
           <span className="stat-title">$0.00</span>
-          <span className="stat-content">DGOD floor</span>
+          <span className="stat-content">DogeGod Floor Price</span>
         </div>
-        <div className="stat stat-1">
+        <div className="stat stat-dgod">
           <span className="stat-title">00.00%</span>
-          <span className="stat-content">Price floor increase</span>
+          <span className="stat-content">Floor % Increase</span>
         </div>
-        <div className="stat">
+        <div className="stat stat-dgod-small">
           <span className="stat-title">$0.00k</span>
-          <span className="stat-content">DGOD total burned</span>
+          <span className="stat-content">Total DogeGod Burned</span>
         </div>
-        <div className="stat">
+        <div className="stat stat-dgod-small">
           <span className="stat-title">0.00m</span>
-          <span className="stat-content">DGOD burned today</span>
+          <span className="stat-content">DogeGod Burned Today</span>
         </div>
-        <div className="stat">
+        <div className="stat stat-dgod-small">
           <span className="stat-title">00.00%</span>
-          <span className="stat-content">DGOD APR</span>
+          <span className="stat-content">DogeGod APR</span>
         </div>
-        <div className="stat">
-          <span className="stat-title">00.00%</span>
-          <span className="stat-content">Liq % of MC</span>
-        </div>
-        <div className="stat">
+        <div className="stat stat-dgod-small">
           <span className="stat-title">$0.00k</span>
-          <span className="stat-content">DGOD MC</span>
+          <span className="stat-content">DogeGod MCAP</span>
         </div>
-        <div className="stat">
-          <span className="stat-title">0.00m</span>
-          <span className="stat-content">DOGE rewards today</span>
+        <div className="stat stat-dgod-small">
+          <span className="stat-title">00.00%</span>
+          <span className="stat-content">Liquidity % of MCAP</span>
         </div>
       </div>
-        <h3 className="is-size-3 m-3 mt-5">WALLET <span style={{color:"#FFCB16"}}>ANALYSIS</span></h3>
+        <h3 className="is-size-3 m-3 mt-5">
+          YOUR <span style={{color:"#FFCB16"}}>WALLET</span>
+          <span className="is-size-5 is-block" style={{marginTop:"-0.25em"}}>{shortenAddress(account)}</span>
+        </h3>
           
       <div className="columns is-vcentered is-centered is-multiline pl-5 pr-5 mb-5">
-        <div className="stat stat-2">
-          <span className="stat-title">0.00m</span>
-          <span className="stat-content">Your total DOGE earned</span>
+        <div className="stat stat-doge">
+          <span className="stat-title">$0.00k</span>
+          <span className="stat-content">Total Dogecoin Earned</span>
         </div>
-        <div className="stat stat-2">
+        <div className="stat stat-doge">
           <span className="stat-title">0.00m</span>
-          <span className="stat-content">Your DOGE per day</span>
+          <span className="stat-content">Dogecoin Per Day</span>
         </div>
-        <div className="stat stat-1">
+        <div className="stat stat-doge">
           <span className="stat-title">0.00m</span>
-          <span className="stat-content">Your held DOGE</span>
+          <span className="stat-content">Dogecoin Held</span>
         </div>
-        <div className="stat stat-1">
+        <div className="stat stat-doge-small">
           <span className="stat-title">0.00m</span>
-          <span className="stat-content">Your held DGOD</span>
-        </div>
-        <div className="stat">
-          <span className="stat-title">0.00m</span>
-          <span className="stat-content">Your Pending DOGE Rewards</span>
+          <span className="stat-content">Pending Dogecoin Reward</span>
           <button className='button is-rounded mt-1 is-small is-dark' style={{maxWidth:"10em", position:"absolute",bottom:"-1.5em", right:"0em",backgroundColor:"rgba(0,10,40,1)",border:"solid #126a85 2px"}}>Manual Claim</button>
         </div>
-        <div className="stat">
+        <div className="stat stat-dgod">
           <span className="stat-title">0.00m</span>
-          <span className="stat-content">Your Vesting DGOD</span>
+          <span className="stat-content">DogeGod Held</span>
         </div>
-        <div className="stat">
+        <div className="stat stat-dgod-small">
+          <span className="stat-title">0.00m</span>
+          <span className="stat-content">DogeGod Vesting</span>
+        </div>
+        <div className="stat stat-dgod-small">
           <span className="stat-title">00d00m00s</span>
-          <span className="stat-content">Next DGOD Vest Unlock</span>
+          <span className="stat-content">Next Vesting Unlock</span>
           <button className='button is-rounded mt-1 is-small is-dark' style={{maxWidth:"10em", position:"absolute",bottom:"-1.5em", right:"0em",backgroundColor:"rgba(0,10,40,1)",border:"solid #126a85 2px"}}>Withdraw</button>
         </div>
 

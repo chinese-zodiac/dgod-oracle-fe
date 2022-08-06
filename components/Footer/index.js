@@ -1,6 +1,6 @@
 import React from 'react';
 import { SOCIAL_TWITTER, SOCIAL_TELEGRAM, SOCIAL_GITHUB} from '../../constants/social';
-import PoweredByCz from '../../public/static/assets/images/poweredbycz.png';
+import CZPower from '../../public/static/assets/images/czpower.png';
 
 function Footer() {
     return(<footer id="footer" className="footer pb-7 mt-5" style={{position:"relative"}}>
@@ -25,6 +25,7 @@ function Footer() {
         Dogegod.io, DGOD, CZodiac, and related technologies plus media are all experimental and must be used according to your personal financial situation and risk profile. 
         <br/><br/>There are no guarantees of profits, but the smart contracts are guaranteed to deliver Dogecoin to DGOD holders as written on the BSC blockchain.
       </p>
+      <a href="https://czodiac.com"><img src={CZPower} alt="Powered by CZodiac" style={{maxWidth:"360px"}} /></a> 
     </div>
   </footer>);
 }
