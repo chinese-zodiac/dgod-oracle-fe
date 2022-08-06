@@ -19,6 +19,7 @@ import IERC20Abi from "../../abi/IERC20.json";
 import DgodAbi from "../../abi/Dgod.json";
 import DgodLockAbi from "../../abi/Dgod.json";
 import AutoRewardPoolAbi from "../../abi/AutoRewardPool.json";
+import { SOCIAL_TWITTER, SOCIAL_TELEGRAM, SOCIAL_GITHUB} from '../../constants/social';
 import {  ADDRESS_DOGE, ADDRESS_DGOD, ADDRESS_AUTO_REWARD_POOL, ADDRESS_DGOD_LOCK, ADDRESS_DGODCZUSD_PAIR} from '../../constants/addresses';
 const { formatEther, parseEther, Interface } = utils;
 
@@ -116,9 +117,17 @@ function Home() {
       </div>
         <h3 className="is-size-3 m-3 mt-5">
           YOUR <span style={{color:"#FFCB16"}}>WALLET</span>
-          <span className="is-size-5 is-block" style={{marginTop:"-0.25em"}}>{shortenAddress(account)}</span>
-        </h3>
+          {!!account ? (
+            <span className="is-size-5 is-block" style={{marginTop:"-0.25em"}}>{shortenAddress(account)}</span>
+          ) : (<>
+            <a className="is-size-5 is-block" style={{marginTop:"-0.25em",textDecoration:"underline",color:"white"}} href="#top">Connect your wallet at top</a>
+            <a className="is-size-5 is-block" target="_blank" style={{textDecoration:"underline"}} href={SOCIAL_TELEGRAM}>Need help? Ask on Telegram</a>
+          </>)
+
+          }
           
+        </h3>
+      {!!account && (<>
       <div className="columns is-vcentered is-centered is-multiline pl-5 pr-5 mb-5">
         <div className="stat stat-doge">
           <span className="stat-title">$0.00k</span>
@@ -152,6 +161,8 @@ function Home() {
         </div>
 
       </div>
+      
+      </>)}
       </div>
     </section>
     
