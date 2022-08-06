@@ -157,7 +157,7 @@ function Home() {
           <span className="stat-content">Total DogeGod Burned</span>
         </div>
         <div className="stat stat-dgod-small">
-          <span className="stat-title">0.00m</span>
+          <span className="stat-title">TBD</span>
           <span className="stat-content">DogeGod Burned Today</span>
         </div>
         <div className="stat stat-dgod-small">
@@ -169,7 +169,7 @@ function Home() {
           <span className="stat-content">DogeGod MCAP</span>
         </div>
         <div className="stat stat-dgod-small">
-          <span className="stat-title">00.00%</span>
+          <span className="stat-title">TBD</span>
           <span className="stat-content">Liquidity % of MCAP</span>
         </div>
       </div>
@@ -188,11 +188,11 @@ function Home() {
       {!!account && (<>
       <div className="columns is-vcentered is-centered is-multiline pl-5 pr-5 mb-5">
         <div className="stat stat-doge">
-          <span className="stat-title">$0.00k</span>
+          <span className="stat-title">TBD</span>
           <span className="stat-content">Total Dogecoin Earned</span>
         </div>
         <div className="stat stat-doge">
-          <span className="stat-title">0.00m</span>
+          <span className="stat-title">TBD</span>
           <span className="stat-content">Dogecoin Per Day</span>
         </div>
         <div className="stat stat-doge">
@@ -200,7 +200,7 @@ function Home() {
           <span className="stat-content">Dogecoin Held</span>
         </div>
         <div className="stat stat-doge-small">
-          <span className="stat-title">0.00m</span>
+          <span className="stat-title">TBD</span>
           <span className="stat-content">Pending Dogecoin Reward</span>
           <button className='button is-rounded mt-1 is-small is-dark' style={{maxWidth:"10em", position:"absolute",bottom:"-1.5em", right:"0em",backgroundColor:"rgba(0,10,40,1)",border:"solid #126a85 2px"}}>Manual Claim</button>
         </div>
@@ -213,7 +213,7 @@ function Home() {
           <span className="stat-content">DogeGod Vesting</span>
         </div>
         <div className="stat stat-dgod-small">
-          <span className="stat-title">00d00m00s</span>
+          <span className="stat-title">TBD</span>
           <span className="stat-content">Next Vesting Unlock</span>
           <button className='button is-rounded mt-1 is-small is-dark' style={{maxWidth:"10em", position:"absolute",bottom:"-1.5em", right:"0em",backgroundColor:"rgba(0,10,40,1)",border:"solid #126a85 2px"}}>Withdraw</button>
         </div>
