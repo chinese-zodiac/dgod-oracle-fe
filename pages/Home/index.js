@@ -7,6 +7,7 @@ import { useEthers, useToken, useContractFunction, useCall, useTokenBalance, use
 import {useCoingeckoPrice } from '@usedapp/coingecko';
 import { utils, Contract, constants } from 'ethers';
 import useAutoRewardPool from "../../hooks/useAutoRewardPool";
+import useDgodLock from "../../hooks/useDgodLock";
 import useCountdown from "../../hooks/useCountdown";
 import useCurrentEpoch from "../../hooks/useCurrentEpoch";
 import OracleBanner from '../../public/static/assets/images/oracle-BannerV2.png';
@@ -18,7 +19,7 @@ import DgodLockAbi from "../../abi/Dgod.json";
 import AutoRewardPoolAbi from "../../abi/AutoRewardPool.json";
 import { SOCIAL_TWITTER, SOCIAL_TELEGRAM, SOCIAL_GITHUB} from '../../constants/social';
 import {weiToShortString, tokenAmtToShortString, weiToFixed, weiToUsdWeiVal, toShortString} from '../../utils/bnDisplay';
-import { ADDRESS_MARKETING, ADDRESS_DOGE, ADDRESS_DGOD, ADDRESS_AUTO_REWARD_POOL, ADDRESS_DGOD_LOCK, ADDRESS_DGODCZUSD_PAIR, ADDRESS_CZUSD} from '../../constants/addresses';
+import { ADDRESS_TEAM, ADDRESS_MARKETING, ADDRESS_DOGE, ADDRESS_DGOD, ADDRESS_AUTO_REWARD_POOL, ADDRESS_DGOD_LOCK, ADDRESS_DGODCZUSD_PAIR, ADDRESS_CZUSD} from '../../constants/addresses';
 const { formatEther, parseEther, Interface } = utils;
 
 const DgodInterface = new Interface(DgodAbi);
@@ -40,6 +41,7 @@ const displayWad = (wad)=>!!wad ? Number(formatEther(wad)).toFixed(2) : "...";
 
 const INITIAL_DGOD_PRICE = "0.000008043";
 const INITIAL_DGOD_PRICE_FLOOR = "0.000005002";
+const INTIAL_DGOD_SUPPLY = parseEther("10000000000");
 
 function Home() {
   
@@ -50,6 +52,7 @@ function Home() {
   const accDogeBal = useTokenBalance(ADDRESS_DOGE, account);
   const accDgodBal = useTokenBalance(ADDRESS_DGOD, account);
   const marketingDogeBal = useTokenBalance(ADDRESS_DOGE, ADDRESS_MARKETING);
+  const teamDgodBal = useTokenBalance(ADDRESS_DOGE, ADDRESS_TEAM);
   const lpCzusdBal = useTokenBalance(ADDRESS_CZUSD, ADDRESS_DGODCZUSD_PAIR);
   const lpDgodBal = useTokenBalance(ADDRESS_DGOD, ADDRESS_DGODCZUSD_PAIR);
   const czusdPrice = useCoingeckoPrice("czusd");
@@ -70,6 +73,14 @@ function Home() {
     pendingReward,
     isAccountAutoClaim
   } = useAutoRewardPool(library,account);
+
+  const {
+    firstUnlockEpoch,
+    secondUnlockEpoch,
+    accountDggInitial,
+    accountVestBal,
+    accountDggClaimable
+  } = useDgodLock(library,account);
 
   useEffect(()=>{
     if(!czusdPrice || !lpCzusdBal || !lpDgodBal){
@@ -122,7 +133,7 @@ function Home() {
           <span className="stat-content">Dogecoin Rewards Today</span>
         </div>
         <div className="stat stat-doge-small">
-          <span className="stat-title">0.00m</span>
+          <span className="stat-title">{tokenAmtToShortString(marketingDogeBal ?? 0,8,2)}</span>
           <span className="stat-content">Total Marketing</span>
         </div>
         <div className="stat stat-dgod">
@@ -142,7 +153,7 @@ function Home() {
           <span className="stat-content">Floor % Increase</span>
         </div>
         <div className="stat stat-dgod-small">
-          <span className="stat-title">$0.00k</span>
+          <span className="stat-title">${weiToShortString(weiToUsdWeiVal(INTIAL_DGOD_SUPPLY.sub(dgodInfo?.totalSupply ?? INTIAL_DGOD_SUPPLY),dgodPrice))}</span>
           <span className="stat-content">Total DogeGod Burned</span>
         </div>
         <div className="stat stat-dgod-small">
@@ -150,7 +161,7 @@ function Home() {
           <span className="stat-content">DogeGod Burned Today</span>
         </div>
         <div className="stat stat-dgod-small">
-          <span className="stat-title">00.00%</span>
+          <span className="stat-title">{weiToShortString(rewardPerSecond?.mul(parseEther("100")).mul((86400*365).toString()) ?? parseEther("0").mul(parseEther(dogePrice ?? "0").div((10**10).toString()).div(weiToUsdWeiVal(dgodInfo?.totalSupply.sub(lpDgodBal).sub(teamDgodBal) ?? parseEther("100000"),dgodPrice ?? "1.00").add(parseEther("1")))),2)}%</span>
           <span className="stat-content">DogeGod APR</span>
         </div>
         <div className="stat stat-dgod-small">
@@ -198,7 +209,7 @@ function Home() {
           <span className="stat-content">DogeGod Held</span>
         </div>
         <div className="stat stat-dgod-small">
-          <span className="stat-title">0.00m</span>
+          <span className="stat-title">{weiToShortString(accountVestBal,2)}</span>
           <span className="stat-content">DogeGod Vesting</span>
         </div>
         <div className="stat stat-dgod-small">
