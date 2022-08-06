@@ -73,6 +73,10 @@ function Home() {
           <span className="stat-title">0.00m</span>
           <span className="stat-content">Dogecoin Rewards Today</span>
         </div>
+        <div className="stat stat-doge-small">
+          <span className="stat-title">0.00m</span>
+          <span className="stat-content">Total Marketing</span>
+        </div>
         <div className="stat stat-dgod">
           <span className="stat-title">$0.00</span>
           <span className="stat-content">DogeGod Price</span>
