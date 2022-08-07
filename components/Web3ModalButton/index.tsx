@@ -24,7 +24,7 @@ const Web3ModalButton = ({className}) => {
   const { error } = useEthers();
 
   useEffect(()=>{
-    if(window?.ethereum?.networkVersion) {
+    if(!!window?.ethereum?.networkVersion || !!window?.web3) {
       setInjectedState(INJECTED_STATE.ACTIVE);
     } else {
       setInjectedState(INJECTED_STATE.NONE);

@@ -11,6 +11,7 @@ import useDgodLock from "../../hooks/useDgodLock";
 import useCountdown from "../../hooks/useCountdown";
 import useCurrentEpoch from "../../hooks/useCurrentEpoch";
 import OracleBanner from '../../public/static/assets/images/oracle-BannerV2.png';
+import HeaderBanner from '../../public/static/assets/images/headerbanner.png';
 import TopVideo from '../../public/static/assets/vids/bgv3.mp4';
 import { shortenAddress, useLookupAddress} from '@usedapp/core'
 import IERC20Abi from "../../abi/IERC20.json";
@@ -155,9 +156,13 @@ function Home() {
   return (<>
     <section id="top" className="hero has-text-centered">
       <div className="m-0 p-0" style={{position:"relative",width:"100%",height:"7.5em"}}>
-        <video preload="none" autoPlay loop muted style={{position:"absolute",objectFit:"cover",minWidth:"1920px",width:"100vw",left:"50%",top:"0",maxHeight:"7.5em",transform: "translateX(-50%)", backgroundColor:"rgb(50,50,50)"}}>
+        <div style={{position:"absolute",width:"100vw",height:"7.5em",overflow:"hidden"}}>
+          <video preload="none" autoPlay loop muted style={{display:"inline-block", objectFit:"cover", objectPosition:"center", width:"100vw",minWidth:"1920px",height:"7.5em",position:"absolute",left:"50%",transform:"translateX(-50%)"}}>
           <source src={TopVideo} type="video/mp4" />
         </video>
+          
+        </div>
+        
         <Web3ModalButton className="mt-5 mb-5" />
         <p className='has-text-grey-lighter is-size-7 is-dark' style={{position:"absolute", bottom:"0",left:"0",right:"0",zIndex:"2", backgroundColor:"rgba(0,10,40,0.8)"}}>
           <span className="mr-2 mb-0 is-inline-block has-text-left" style={{width:"11em"}}>Network: {!!account ? (chainId == 56 ? (<span className="has-text-success">✓ BSC</span>) : <span className="has-text-error has-text-danger">❌NOT BSC</span>) : "..."}</span>
