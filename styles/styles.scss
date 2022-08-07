@@ -6,6 +6,9 @@ html{
 body{
   background-color: $background;
   color:white;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+  position: relative;
 }
 
 .full-width {
