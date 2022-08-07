@@ -157,7 +157,7 @@ function Home() {
     <section id="top" className="hero has-text-centered">
       <div className="m-0 p-0" style={{position:"relative",width:"100%",height:"7.5em"}}>
         <div style={{position:"absolute",width:"100vw",height:"7.5em",overflow:"hidden"}}>
-          <video preload="none" autoPlay loop muted style={{display:"inline-block", objectFit:"cover", objectPosition:"center", width:"100vw",minWidth:"1920px",height:"7.5em",position:"absolute",left:"50%",transform:"translateX(-50%)"}}>
+          <video poster={HeaderBanner} preload="none" autoPlay loop muted style={{display:"inline-block", objectFit:"cover", objectPosition:"center", width:"100vw",minWidth:"1920px",height:"7.5em",position:"absolute",left:"50%",transform:"translateX(-50%)"}}>
           <source src={TopVideo} type="video/mp4" />
         </video>
           
