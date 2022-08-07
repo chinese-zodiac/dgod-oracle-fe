@@ -37,6 +37,11 @@ function useAutoRewardPool(provider,account) {
       contract:arpContract,
       method:'getIsAccountAutoClaim',
       args:[account ?? ADDRESS_ZERO]
+    },
+    {
+      contract:arpContract,
+      method:'totalStaked',
+      args:[]
     }
   ]) ?? [];
   return {
@@ -46,6 +51,7 @@ function useAutoRewardPool(provider,account) {
     totalRewardsReceived:results?.[3]?.value?.[0],
     pendingReward:results?.[4]?.value?.[0],
     isAccountAutoClaim:results?.[5]?.value?.[0],
+    totalStaked:results?.[6]?.value?.[0],
   }
 }
 
