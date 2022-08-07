@@ -265,9 +265,11 @@ function Home() {
           <div className="stat stat-dgod-small">
             <span className="stat-title">{accountDggClaimable?.gt(0) ? "AVAILABLE" : (deltaCountdown(currentEpoch,firstUnlockEpoch.gt(currentEpoch) ?  firstUnlockEpoch : secondUnlockEpoch))}</span>
             <span className="stat-content">Next Vesting Unlock</span>
-            <button className='button is-rounded mt-1 is-small is-dark' style={{maxWidth:"10em", position:"absolute",bottom:"-1.5em", right:"0em",backgroundColor:"rgba(0,10,40,1)",border:"solid #126a85 2px"}}
+            {accountDggClaimable?.gt(0) && (<>
+              <button className='button is-rounded mt-1 is-small is-dark' style={{maxWidth:"10em", position:"absolute",bottom:"-1.5em", right:"0em",backgroundColor:"rgba(0,10,40,1)",border:"solid #126a85 2px"}}
               onClick={()=>sendWithdraw()}
             >Withdraw</button>
+            </>)}            
           </div>        
         </>)}
 
