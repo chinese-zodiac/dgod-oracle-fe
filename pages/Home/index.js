@@ -12,6 +12,7 @@ import useCountdown from "../../hooks/useCountdown";
 import useCurrentEpoch from "../../hooks/useCurrentEpoch";
 import OracleBanner from '../../public/static/assets/images/oracle-BannerV2.png';
 import HeaderBanner from '../../public/static/assets/images/headerbanner.png';
+import CZCashLogo from '../../public/static/assets/images/czcash.png';
 import TopVideo from '../../public/static/assets/vids/bgv3.mp4';
 import { shortenAddress, useLookupAddress} from '@usedapp/core'
 import IERC20Abi from "../../abi/IERC20.json";
@@ -22,6 +23,7 @@ import { SOCIAL_TWITTER, SOCIAL_TELEGRAM, SOCIAL_GITHUB} from '../../constants/s
 import {deltaCountdown} from '../../utils/timeDisplay';
 import {weiToShortString, tokenAmtToShortString, weiToFixed, weiToUsdWeiVal, toShortString} from '../../utils/bnDisplay';
 import { ADDRESS_TEAM, ADDRESS_MARKETING, ADDRESS_DOGE, ADDRESS_DGOD, ADDRESS_AUTO_REWARD_POOL, ADDRESS_DGOD_LOCK, ADDRESS_DGODCZUSD_PAIR, ADDRESS_CZUSD} from '../../constants/addresses';
+import { czCashBuyLink } from '../../utils/dexBuyLink';
 const { formatEther, parseEther, Interface } = utils;
 
 const DgodInterface = new Interface(DgodAbi);
@@ -171,6 +173,7 @@ function Home() {
       </div>
       <div className="m-0 " style={{background:"linear-gradient(301deg, rgba(1,31,23,1) 0%, rgba(5,24,40,1) 100%)",paddingBottom:"5em",paddingTop:"1em"}}>
       <img style={{maxWidth:"480px",width:"100vw",marginLeft:"auto",marginRight:"auto"}} src={OracleBanner} />
+      <a target="_blank" href={czCashBuyLink(ADDRESS_DGOD)} className="button is-dark is-outlined is-large mt-0 mb-5 is-rounded" style={{display:"block",width:"12em",border:"solid #126a85 2px",color:"white",marginLeft:"auto",marginRight:"auto",paddingTop:"0.45em"}} >BUY ON <img src={CZCashLogo} style={{height:"1em",marginLeft:"0.1em",position:"relative",top:"0.1em"}} alt="CZ.Cash" /></a>
       <div className="columns is-centered is-vcentered is-multiline pl-2 pr-2 mb-5">
         <div className="stat stat-doge">
           <span className="stat-title">${weiToShortString(dogeTotalPaidWad,2)}</span>
@@ -279,8 +282,9 @@ function Home() {
         </>)}
 
       </div>
-      
       </>)}
+      <br/><br/>
+      <div id="dexscreener-embed" className='mt-5'><iframe src={`https://dexscreener.com/bsc/${ADDRESS_DGODCZUSD_PAIR}?embed=1&theme=dark&info=0`}></iframe></div>
       </div>
     </section>
     
