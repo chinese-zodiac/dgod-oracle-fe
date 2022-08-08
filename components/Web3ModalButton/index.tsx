@@ -63,7 +63,12 @@ const Web3ModalButton = ({className}) => {
       providerOptions,
     });
     try {
-      const provider = await web3Modal.connectTo(providerId);
+      let provider;
+      if(providerId=='injected' || !providerId) {
+        provider = await web3Modal.connect();
+      } else {
+        provider = await web3Modal.connectTo(providerId);
+      }
       await activate(provider)
       setActivateError('')
     } catch (error: any) {

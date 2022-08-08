@@ -17,7 +17,7 @@ function Footer() {
         </a>
       </div>  
       <p className='pb-6'>
-        v0.1.7
+        v0.1.8
       </p>
       <p>
         AS WITH ANY BLOCKCHAIN PROJECT: <b>Do your own research before using this website or buying DGOD.</b><br/>
