@@ -51,7 +51,6 @@ const Web3ModalButton = ({className}) => {
         package: WalletConnectProvider,
         options: {
           bridge: 'https://bridge.walletconnect.org',
-          infuraId: 'd8df2cb7844e4a54ab0a782f608749dd',
           rpc: {
             56: "https://rpc.ankr.com/bsc"
           }
@@ -60,6 +59,8 @@ const Web3ModalButton = ({className}) => {
     }
 
     const web3Modal = new Web3Modal({
+      network:"",
+      cacheProvider: false,
       providerOptions,
     });
     try {

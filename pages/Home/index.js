@@ -284,7 +284,9 @@ function Home() {
       </div>
       </>)}
       <br/><br/>
+      {/*
       <div id="dexscreener-embed" className='mt-5'><iframe src={`https://dexscreener.com/bsc/${ADDRESS_DGODCZUSD_PAIR}?embed=1&theme=dark&info=0`}></iframe></div>
+      */}
       </div>
     </section>
     
