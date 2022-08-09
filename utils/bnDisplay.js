@@ -9,13 +9,13 @@ export function weiToFixed(bn,decimals) {
 export function weiToShortString(bn,decimals) {
     if(!bn) return (0).toFixed(decimals);
     if(bn.lt(parseEther("1000"))) return weiToShortStringSmall(bn,18,decimals);
-    return toShortString(bn.div(BigNumber.from("10").pow(18)),decimals);
+    return toShortString(bn,decimals,18);
 }
 
 export function tokenAmtToShortString(bn,tokenDecimals,decimals) {
     if(!bn) return (0).toFixed(decimals);
     if(bn.lt(BigNumber.from("10").pow(tokenDecimals+3))) return weiToShortStringSmall(bn,tokenDecimals,decimals)
-    return toShortString(bn.div(BigNumber.from("10").pow(tokenDecimals)),decimals);
+    return toShortString(bn,decimals,tokenDecimals);
 }
 
 export function weiToShortStringSmall(bn,tokenDecimals,decimals) {
@@ -36,19 +36,29 @@ export function weiToUsdWeiVal(bn,usdPerTokens) {
     return bn.mul((Number(usdPerTokens)*1e+18).toFixed()).div(BigNumber.from("10").pow("18"))
 }
 
-export function toShortString(bn,decimals) {
+export function toShortString(bn,decimals,tokenDecimals) {
+    if(!tokenDecimals) tokenDecimals = 0;
     if(!bn) return (0).toFixed(decimals);
-    if(bn.gte(10**12)) {
-        return (Number(bn)/10**12).toFixed(decimals)+"T";
+    let power = BigNumber.from("10").pow(12+tokenDecimals);
+    if(bn.gte(power)) {
+        return powerConverter(bn,12,decimals,tokenDecimals,"T");
     }
-    if(bn.gte(10**9)) {
-        return (Number(bn)/10**9).toFixed(decimals)+"B";
+    power = BigNumber.from("10").pow(9+tokenDecimals);
+    if(bn.gte(power)) {
+        return powerConverter(bn,9,decimals,tokenDecimals,"B");
     }
-    if(bn.gte(10**6)) {
-        return (Number(bn)/10**6).toFixed(decimals)+"M";
+    power = BigNumber.from("10").pow(6+tokenDecimals);
+    if(bn.gte(power)) {
+        return powerConverter(bn,6,decimals,tokenDecimals,"M");
     }
-    if(bn.gte(10**3)) {
-        return(Number(bn)/10**3).toFixed(decimals)+"K";
+    power = BigNumber.from("10").pow(3+tokenDecimals);
+    if(bn.gte(power)) {
+        return powerConverter(bn,3,decimals,tokenDecimals,"K");
     }
-    return Number(bn.mul(10**decimals)).toFixed(decimals);
+    power = BigNumber.from("10").pow(3+tokenDecimals);
+    return powerConverter(bn,0,decimals,tokenDecimals,"")
+}
+
+function powerConverter(bn,factorOf10,decimals,tokenDecimals,letter) {
+    return (Number(bn.div(BigNumber.from("10").pow(factorOf10+tokenDecimals)))+Number(bn.div(BigNumber.from("10").pow(factorOf10+tokenDecimals-decimals)))/Number(10**(decimals+1))).toFixed(decimals)+letter;
 }

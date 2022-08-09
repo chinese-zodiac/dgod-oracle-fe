@@ -120,8 +120,7 @@ function Home() {
     const mcapWad = dgodInfo.totalSupply.mul(parseEther(dgodPrice)).div(parseEther("1"));
     setDgodMcapWad(mcapWad);
     const secondsRemaining = timestampLast.add(86400*7).sub(currentEpoch);
-    console.log(timestampLast.toString())
-    const dogePaidUsdWad = totalRewardsPaid.add(autoRewardPoolDogeBal).sub(rewardPerSecond.mul(secondsRemaining)).mul(parseEther(dogePrice)).div(10**8);
+    const dogePaidUsdWad = totalRewardsPaid.add(autoRewardPoolDogeBal).sub(rewardPerSecond.mul(secondsRemaining));
     setDogeTotalPaidWad(dogePaidUsdWad);
   },[dgodPrice,dogePrice,dgodInfo?.totalSupply?.toString(),totalRewardsPaid?.toString(),autoRewardPoolDogeBal?.toString(),rewardPerSecond?.toString(),currentEpoch?.toString(),timestampLast?.toString()]);
 
@@ -180,7 +179,7 @@ function Home() {
       <a target="_blank" href={czCashBuyLink(ADDRESS_DGOD)} className="button is-dark is-outlined is-large mt-0 mb-5 is-rounded" style={{display:"block",width:"12em",border:"solid #126a85 2px",color:"white",marginLeft:"auto",marginRight:"auto",paddingTop:"0.45em"}} >BUY ON <img src={CZCashLogo} style={{height:"1em",marginLeft:"0.1em",position:"relative",top:"0.1em"}} alt="CZ.Cash" /></a>
       <div className="columns is-centered is-vcentered is-multiline pl-2 pr-2 mb-5">
         <div className="stat stat-doge">
-          <span className="stat-title">${weiToShortString(dogeTotalPaidWad,4)}</span>
+          <span className="stat-title">{tokenAmtToShortString(dogeTotalPaidWad ?? 0,8,6)}</span>
           <span className="stat-content">Total Dogecoin Rewards</span>
         </div>
         <div className="stat stat-doge">
