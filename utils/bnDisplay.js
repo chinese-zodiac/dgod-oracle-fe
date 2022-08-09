@@ -60,5 +60,5 @@ export function toShortString(bn,decimals,tokenDecimals) {
 }
 
 function powerConverter(bn,factorOf10,decimals,tokenDecimals,letter) {
-    return (Number(bn.div(BigNumber.from("10").pow(factorOf10+tokenDecimals)))+Number(bn.div(BigNumber.from("10").pow(factorOf10+tokenDecimals-decimals)))/Number(10**(decimals+1))).toFixed(decimals)+letter;
+    return (Number(bn.div(BigNumber.from("10").pow(factorOf10+tokenDecimals-decimals)))/Number(10**(decimals))).toFixed(decimals)+letter;
 }
