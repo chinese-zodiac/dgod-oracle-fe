@@ -70,7 +70,7 @@ function Home() {
   const lpDgodBal = useTokenBalance(ADDRESS_DGOD, ADDRESS_DGODCZUSD_PAIR);
   const autoRewardPoolDogeBal = useTokenBalance(ADDRESS_DOGE, ADDRESS_AUTO_REWARD_POOL);
   const lockedLpTokens = useTokenBalance(ADDRESS_DGODCZUSD_PAIR, ADDRESS_DGOD);
-  const czusdPrice = useCoingeckoPrice("czusd");
+  const czusdPrice = "1.00";
   const dogePrice = useCoingeckoPrice("dogecoin");
 
   const currentEpoch = useCurrentEpoch();
@@ -112,7 +112,7 @@ function Home() {
   },[czusdPrice,lpCzusdBal?.toString(),lpDgodBal?.toString()]);
 
   useEffect(()=>{
-    if(!dgodPrice || !dogePrice || !dgodInfo?.totalSupply || !totalRewardsPaid || !rewardPerSecond || !autoRewardPoolDogeBal || !currentEpoch || !timestampLast){
+    if(!dgodPrice || !dgodInfo?.totalSupply || !totalRewardsPaid || !rewardPerSecond || !autoRewardPoolDogeBal || !currentEpoch || !timestampLast){
       setDgodMcapWad(parseEther("0"));
       setDogeTotalPaidWad(parseEther("0"));
       return;
@@ -122,16 +122,17 @@ function Home() {
     const secondsRemaining = timestampLast.add(86400*7).sub(currentEpoch);
     const dogePaidUsdWad = totalRewardsPaid.add(autoRewardPoolDogeBal).sub(rewardPerSecond.mul(secondsRemaining));
     setDogeTotalPaidWad(dogePaidUsdWad);
-  },[dgodPrice,dogePrice,dgodInfo?.totalSupply?.toString(),totalRewardsPaid?.toString(),autoRewardPoolDogeBal?.toString(),rewardPerSecond?.toString(),currentEpoch?.toString(),timestampLast?.toString()]);
+  },[dgodPrice,dgodInfo?.totalSupply?.toString(),totalRewardsPaid?.toString(),autoRewardPoolDogeBal?.toString(),rewardPerSecond?.toString(),currentEpoch?.toString(),timestampLast?.toString()]);
 
   useEffect(()=>{
-    if(!dgodPrice || !dogePrice || !totalStaked || !rewardPerSecond || totalStaked?.eq(0) || dgodPrice == 0){
+    if(!dgodPrice || !totalStaked || !rewardPerSecond || totalStaked?.eq(0) || dgodPrice == 0){
       setDgodAprWad(parseEther("0"));
       return;
     }
     const stakedUsd = totalStaked.mul(parseEther(dgodPrice)).div(parseEther("1"));
-    const usdPerDay = rewardPerSecond.mul((86400*365).toString()).mul(parseEther(dogePrice)).div(10**8);
-    const apr = usdPerDay.mul(parseEther("100")).div(stakedUsd);
+    const usdPerDay = rewardPerSecond.mul(86400*365).mul(parseEther(dogePrice ?? "0")).div(10**8);
+    console.log({usdPerDay})
+    const apr = usdPerDay?.mul(parseEther("100")).div(stakedUsd) ?? BigNumber.from(0);
     setDgodAprWad(apr);
   },[dgodPrice,dogePrice,totalStaked?.toString(),rewardPerSecond?.toString()]);
 
