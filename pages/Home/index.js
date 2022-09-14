@@ -1,5 +1,7 @@
 
-import React, { Component, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
+// next
+import Image from 'next/image'
 import Web3ModalButton from '../../components/Web3ModalButton';
 import Footer from '../../components/Footer';
 import "./index.module.scss";
@@ -24,6 +26,8 @@ import {deltaCountdown} from '../../utils/timeDisplay';
 import {weiToShortString, tokenAmtToShortString, weiToFixed, weiToUsdWeiVal, toShortString} from '../../utils/bnDisplay';
 import { ADDRESS_TEAM, ADDRESS_MARKETING, ADDRESS_DOGE, ADDRESS_DGOD, ADDRESS_AUTO_REWARD_POOL, ADDRESS_DGOD_LOCK, ADDRESS_DGODCZUSD_PAIR, ADDRESS_CZUSD} from '../../constants/addresses';
 import { czCashBuyLink } from '../../utils/dexBuyLink';
+
+
 const { formatEther, parseEther, Interface } = utils;
 
 const DgodInterface = new Interface(DgodAbi);
@@ -176,121 +180,148 @@ function Home() {
         </p>
       </div>
       <div className="m-0 " style={{background:"linear-gradient(301deg, rgba(1,31,23,1) 0%, rgba(5,24,40,1) 100%)",paddingBottom:"5em",paddingTop:"1em"}}>
-      <img style={{maxWidth:"480px",width:"100vw",marginLeft:"auto",marginRight:"auto"}} src={OracleBanner} />
-      <a target="_blank" href={czCashBuyLink(ADDRESS_DGOD)} className="button is-dark is-outlined is-large mt-0 mb-5 is-rounded" style={{display:"block",width:"12em",border:"solid #126a85 2px",color:"white",marginLeft:"auto",marginRight:"auto",paddingTop:"0.45em"}} >BUY ON <img src={CZCashLogo} style={{height:"1em",marginLeft:"0.1em",position:"relative",top:"0.1em"}} alt="CZ.Cash" /></a>
-      <div className="columns is-centered is-vcentered is-multiline pl-2 pr-2 mb-5">
-        <div className="stat stat-doge">
-          <span className="stat-title">{tokenAmtToShortString(dogeTotalPaidWad ?? 0,8,6)}</span>
-          <span className="stat-content">Total Dogecoin Rewards</span>
+        <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+          <div style={{display: "flex", flexDirection:"column", alignItems: "center"}}>
+            <a href="https://dogegod.io" target="_blank">
+              <Image src="/static/assets/logo.png" width={110} height={110} alt="DGOD symbol"/>
+            </a>
+            <div>
+            ${dgodPrice?.substring(0,10)}
+            </div>
+          </div>
+          <div>
+            <Image src="/static/assets/images/oracle-dogo.png" width={2904/15} height={2804/15}/>
+          </div>
+          <div style={{display: "flex", flexDirection:"column", alignItems: "center"}}>
+            <a href="https://dogecoin.com">
+              <Image src="/static/assets/images/dogecoin-1.png" height={110} width={110} alt="Dogecoin"/>
+            </a>
+            <div>
+              ${dogePrice}
+            </div>
+          </div>
         </div>
-        <div className="stat stat-doge">
-          <span className="stat-title">{tokenAmtToShortString(totalRewardsPaid ?? 0,8,2)}</span>
-          <span className="stat-content">Total Dogecoin Distributed</span>
-        </div>
-        <div className="stat stat-doge-small">
-          <span className="stat-title">{tokenAmtToShortString(rewardPerSecond?.mul(86400) ?? 0,8,2)}</span>
-          <span className="stat-content">Dogecoin Rewards Today</span>
-        </div>
-        <div className="stat stat-doge-small">
-          <span className="stat-title">{tokenAmtToShortString(marketingDogeBal ?? 0,8,2)}</span>
-          <span className="stat-content">Total Marketing</span>
-        </div>
-        <div className="stat stat-dgod">
-          <span className="stat-title">${dgodPrice?.substring(0,10)}</span>
-          <span className="stat-content">DogeGod Price</span>
-        </div>
-        <div className="stat stat-dgod">
-          <span className="stat-title">+{weiToShortString(parseEther("100").mul(parseEther(dgodPrice)).div(parseEther(INITIAL_DGOD_PRICE)).sub(parseEther("100")),2)}%</span>
-          <span className="stat-content">DogeGod % Increase</span>
-        </div>
-        <div className="stat stat-dgod">
-          <span className="stat-title">${dgodPriceFloor?.substring(0,10)}</span>
-          <span className="stat-content">DogeGod Floor Price</span>
-        </div>
-        <div className="stat stat-dgod">
-          <span className="stat-title">+{weiToShortString(parseEther("100").mul(parseEther(dgodPriceFloor)).div(parseEther(INITIAL_DGOD_PRICE_FLOOR)).sub(parseEther("100")),2)}%</span>
-          <span className="stat-content">Floor % Increase</span>
-        </div>
-        <div className="stat stat-dgod-small">
-          <span className="stat-title">${weiToShortString(weiToUsdWeiVal(INTIAL_DGOD_SUPPLY.sub(dgodInfo?.totalSupply ?? INTIAL_DGOD_SUPPLY),dgodPrice),2)}</span>
-          <span className="stat-content">Total DogeGod Burned</span>
-        </div>
-        <div className="stat stat-dgod-small">
-          <span className="stat-title">TBD</span>
-          <span className="stat-content">DogeGod Burned Today</span>
-        </div>
-        <div className="stat stat-dgod-small">
-          <span className="stat-title">{weiToShortString(dgodAprWad,2)}%</span>
-          <span className="stat-content">DogeGod APR</span>
-        </div>
-        <div className="stat stat-dgod-small">
-          <span className="stat-title">${weiToShortString(dgodMcapWad,2)}</span>
-          <span className="stat-content">DogeGod MCAP</span>
-        </div>
-        <div className="stat stat-dgod-small">
-          <span className="stat-title">{weiToShortString(liqRatioWad,2)}%</span>
-          <span className="stat-content">Liquidity % of MCAP</span>
-        </div>
-      </div>
-        <h3 className="is-size-3 m-3 mt-5">
-          YOUR <span style={{color:"#FFCB16"}}>WALLET</span>
-          {!!account ? (
-            <span className="is-size-5 is-block" style={{marginTop:"-0.25em"}}>{shortenAddress(account)}</span>
-          ) : (<>
-            <a className="is-size-5 is-block" style={{marginTop:"-0.25em",textDecoration:"underline",color:"white"}} href="#top">Connect your wallet at top</a>
-            <a className="is-size-5 is-block" target="_blank" style={{textDecoration:"underline"}} href={SOCIAL_TELEGRAM}>Need help? Ask on Telegram</a>
-          </>)
-
-          }
-          
-        </h3>
-      {!!account && (<>
-      <div className="columns is-vcentered is-centered is-multiline pl-5 pr-5 mb-5">
-        <div className="stat stat-doge">
-          <span className="stat-title">{tokenAmtToShortString(totalRewardsReceived,8,2)}</span>
-          <span className="stat-content">Total Dogecoin Earned</span>
-        </div>
-        <div className="stat stat-doge">
-          <span className="stat-title">{totalStaked?.gt(0) ? tokenAmtToShortString(rewardPerSecond?.mul(86400).mul(combinedStakedBalance ?? 0).div(totalStaked),8,2) : "0.00"}</span>
-          <span className="stat-content">Dogecoin Per Day</span>
-        </div>
-        <div className="stat stat-doge">
-          <span className="stat-title">{tokenAmtToShortString(accDogeBal,8,2)}</span>
-          <span className="stat-content">Dogecoin Held</span>
-        </div>
-        <div className="stat stat-doge-small">
-          <span className="stat-title">{tokenAmtToShortString(pendingReward ?? 0,8,2)}</span>
-          <span className="stat-content">Pending Dogecoin Reward</span>
-          <button className='button is-rounded mt-1 is-small is-dark' style={{maxWidth:"10em", position:"absolute",bottom:"-1.5em", right:"0em",backgroundColor:"rgba(0,10,40,1)",border:"solid #126a85 2px"}}
-            onClick={()=>sendClaim()}
-          >Manual Claim</button>
-        </div>
-        <div className="stat stat-dgod">
-          <span className="stat-title">{weiToShortString(accDgodBal,2)}</span>
-          <span className="stat-content">DogeGod Held</span>
-        </div>
-        {accountDggInitial?.gt(0) && (<>
-          <div className="stat stat-dgod-small">
-            <span className="stat-title">{weiToShortString(accountVestBal,2)}</span>
-            <span className="stat-content">DogeGod Vesting</span>
+        {/* <p>Contract address</p>
+        <p>Contract address</p> */}
+        <br/>
+        {/* BUY BUTTON LINK */}
+        <a target="_blank" href={czCashBuyLink(ADDRESS_DGOD)} className="button is-dark is-outlined is-large mt-0 mb-5 is-rounded" style={{display:"block",width:"12em",border:"solid #126a85 2px",color:"white",marginLeft:"auto",marginRight:"auto",paddingTop:"0.45em"}} >
+          BUY ON 
+          <img src={CZCashLogo} style={{height:"1em",marginLeft:"0.1em",position:"relative",top:"0.1em"}} alt="CZ.Cash" />
+        </a>
+        <div className="columns is-centered is-vcentered is-multiline pl-2 pr-2 mb-5">
+          <div className="stat stat-doge">
+            <span className="stat-title">{tokenAmtToShortString(dogeTotalPaidWad ?? 0,8,6)}</span>
+            <span className="stat-content">Total Dogecoin Rewards</span>
+          </div>
+          <div className="stat stat-doge">
+            <span className="stat-title">{tokenAmtToShortString(totalRewardsPaid ?? 0,8,2)}</span>
+            <span className="stat-content">Total Dogecoin Distributed</span>
+          </div>
+          <div className="stat stat-doge-small">
+            <span className="stat-title">{tokenAmtToShortString(rewardPerSecond?.mul(86400) ?? 0,8,2)}</span>
+            <span className="stat-content">Dogecoin Rewards Today</span>
+          </div>
+          <div className="stat stat-doge-small">
+            <span className="stat-title">{tokenAmtToShortString(marketingDogeBal ?? 0,8,2)}</span>
+            <span className="stat-content">Total Marketing</span>
+          </div>
+          <div className="stat stat-dgod">
+            <span className="stat-title">${dgodPrice?.substring(0,10)}</span>
+            <span className="stat-content">DogeGod Price</span>
+          </div>
+          <div className="stat stat-dgod">
+            <span className="stat-title">+{weiToShortString(parseEther("100").mul(parseEther(dgodPrice)).div(parseEther(INITIAL_DGOD_PRICE)).sub(parseEther("100")),2)}%</span>
+            <span className="stat-content">DogeGod % Increase</span>
+          </div>
+          <div className="stat stat-dgod">
+            <span className="stat-title">${dgodPriceFloor?.substring(0,10)}</span>
+            <span className="stat-content">DogeGod Floor Price</span>
+          </div>
+          <div className="stat stat-dgod">
+            <span className="stat-title">+{weiToShortString(parseEther("100").mul(parseEther(dgodPriceFloor)).div(parseEther(INITIAL_DGOD_PRICE_FLOOR)).sub(parseEther("100")),2)}%</span>
+            <span className="stat-content">Floor % Increase</span>
           </div>
           <div className="stat stat-dgod-small">
-            <span className="stat-title">{accountDggClaimable?.gt(0) ? "AVAILABLE" : (deltaCountdown(currentEpoch,firstUnlockEpoch.gt(currentEpoch) ?  firstUnlockEpoch : secondUnlockEpoch))}</span>
-            <span className="stat-content">Next Vesting Unlock</span>
-            {accountDggClaimable?.gt(0) && (<>
-              <button className='button is-rounded mt-1 is-small is-dark' style={{maxWidth:"10em", position:"absolute",bottom:"-1.5em", right:"0em",backgroundColor:"rgba(0,10,40,1)",border:"solid #126a85 2px"}}
-              onClick={()=>sendWithdraw()}
-            >Withdraw</button>
-            </>)}            
-          </div>        
-        </>)}
+            <span className="stat-title">${weiToShortString(weiToUsdWeiVal(INTIAL_DGOD_SUPPLY.sub(dgodInfo?.totalSupply ?? INTIAL_DGOD_SUPPLY),dgodPrice),2)}</span>
+            <span className="stat-content">Total DogeGod Burned</span>
+          </div>
+          <div className="stat stat-dgod-small">
+            <span className="stat-title">TBD</span>
+            <span className="stat-content">DogeGod Burned Today</span>
+          </div>
+          <div className="stat stat-dgod-small">
+            <span className="stat-title">{weiToShortString(dgodAprWad,2)}%</span>
+            <span className="stat-content">DogeGod APR</span>
+          </div>
+          <div className="stat stat-dgod-small">
+            <span className="stat-title">${weiToShortString(dgodMcapWad,2)}</span>
+            <span className="stat-content">DogeGod MCAP</span>
+          </div>
+          <div className="stat stat-dgod-small">
+            <span className="stat-title">{weiToShortString(liqRatioWad,2)}%</span>
+            <span className="stat-content">Liquidity % of MCAP</span>
+          </div>
+        </div>
+          <h3 className="is-size-3 m-3 mt-5">
+            YOUR <span style={{color:"#FFCB16"}}>WALLET</span>
+            {!!account ? (
+              <span className="is-size-5 is-block" style={{marginTop:"-0.25em"}}>{shortenAddress(account)}</span>
+            ) : (<>
+              <a className="is-size-5 is-block" style={{marginTop:"-0.25em",textDecoration:"underline",color:"white"}} href="#top">Connect your wallet at top</a>
+              <a className="is-size-5 is-block" target="_blank" style={{textDecoration:"underline"}} href={SOCIAL_TELEGRAM}>Need help? Ask on Telegram</a>
+            </>)
 
-      </div>
-      </>)}
-      <br/><br/>
-      {/*
-      <div id="dexscreener-embed" className='mt-5'><iframe src={`https://dexscreener.com/bsc/${ADDRESS_DGODCZUSD_PAIR}?embed=1&theme=dark&info=0`}></iframe></div>
-      */}
+            }
+            
+          </h3>
+        {!!account && (<>
+        <div className="columns is-vcentered is-centered is-multiline pl-5 pr-5 mb-5">
+          <div className="stat stat-doge">
+            <span className="stat-title">{tokenAmtToShortString(totalRewardsReceived,8,2)}</span>
+            <span className="stat-content">Total Dogecoin Earned</span>
+          </div>
+          <div className="stat stat-doge">
+            <span className="stat-title">{totalStaked?.gt(0) ? tokenAmtToShortString(rewardPerSecond?.mul(86400).mul(combinedStakedBalance ?? 0).div(totalStaked),8,2) : "0.00"}</span>
+            <span className="stat-content">Dogecoin Per Day</span>
+          </div>
+          <div className="stat stat-doge">
+            <span className="stat-title">{tokenAmtToShortString(accDogeBal,8,2)}</span>
+            <span className="stat-content">Dogecoin Held</span>
+          </div>
+          <div className="stat stat-doge-small">
+            <span className="stat-title">{tokenAmtToShortString(pendingReward ?? 0,8,2)}</span>
+            <span className="stat-content">Pending Dogecoin Reward</span>
+            <button className='button is-rounded mt-1 is-small is-dark' style={{maxWidth:"10em", position:"absolute",bottom:"-1.5em", right:"0em",backgroundColor:"rgba(0,10,40,1)",border:"solid #126a85 2px"}}
+              onClick={()=>sendClaim()}
+            >Manual Claim</button>
+          </div>
+          <div className="stat stat-dgod">
+            <span className="stat-title">{weiToShortString(accDgodBal,2)}</span>
+            <span className="stat-content">DogeGod Held</span>
+          </div>
+          {accountDggInitial?.gt(0) && (<>
+            <div className="stat stat-dgod-small">
+              <span className="stat-title">{weiToShortString(accountVestBal,2)}</span>
+              <span className="stat-content">DogeGod Vesting</span>
+            </div>
+            <div className="stat stat-dgod-small">
+              <span className="stat-title">{accountDggClaimable?.gt(0) ? "AVAILABLE" : (deltaCountdown(currentEpoch,firstUnlockEpoch.gt(currentEpoch) ?  firstUnlockEpoch : secondUnlockEpoch))}</span>
+              <span className="stat-content">Next Vesting Unlock</span>
+              {accountDggClaimable?.gt(0) && (<>
+                <button className='button is-rounded mt-1 is-small is-dark' style={{maxWidth:"10em", position:"absolute",bottom:"-1.5em", right:"0em",backgroundColor:"rgba(0,10,40,1)",border:"solid #126a85 2px"}}
+                onClick={()=>sendWithdraw()}
+              >Withdraw</button>
+              </>)}            
+            </div>        
+          </>)}
+
+        </div>
+        </>)}
+        <br/><br/>
+        {/*
+        <div id="dexscreener-embed" className='mt-5'><iframe src={`https://dexscreener.com/bsc/${ADDRESS_DGODCZUSD_PAIR}?embed=1&theme=dark&info=0`}></iframe></div>
+        */}
       </div>
     </section>
     
