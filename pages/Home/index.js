@@ -193,7 +193,7 @@ function Home() {
             <Image src="/static/assets/images/oracle-dogo.png" width={2904/15} height={2804/15}/>
           </div>
           <div style={{display: "flex", flexDirection:"column", alignItems: "center"}}>
-            <a href="https://dogecoin.com">
+            <a target="_blank" href="https://dogecoin.com">
               <Image src="/static/assets/images/dogecoin-1.png" height={110} width={110} alt="Dogecoin"/>
             </a>
             <div>
