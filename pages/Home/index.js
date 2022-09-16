@@ -7,7 +7,7 @@ import Footer from '../../components/Footer';
 import "./index.module.scss";
 import { useEthers, useToken, useContractFunction, useCall, useTokenBalance, useTokenAllowance, useEtherBalance  } from '@usedapp/core'
 import {useCoingeckoPrice } from '@usedapp/coingecko';
-import { utils, Contract, constants } from 'ethers';
+import { utils, Contract, constants, BigNumber } from 'ethers';
 import useAutoRewardPool from "../../hooks/useAutoRewardPool";
 import useDgodLock from "../../hooks/useDgodLock";
 import useCountdown from "../../hooks/useCountdown";
@@ -26,9 +26,13 @@ import {deltaCountdown} from '../../utils/timeDisplay';
 import {weiToShortString, tokenAmtToShortString, weiToFixed, weiToUsdWeiVal, toShortString} from '../../utils/bnDisplay';
 import { ADDRESS_TEAM, ADDRESS_MARKETING, ADDRESS_DOGE, ADDRESS_DGOD, ADDRESS_AUTO_REWARD_POOL, ADDRESS_DGOD_LOCK, ADDRESS_DGODCZUSD_PAIR, ADDRESS_CZUSD} from '../../constants/addresses';
 import { czCashBuyLink } from '../../utils/dexBuyLink';
+import Stat from '../../components/Stat';
 
 
-const { formatEther, parseEther, Interface } = utils;
+const { formatEther, commify, parseEther, Interface } = utils;
+
+const primaryColor = "rgb(161,224,289)"
+const secondaryColor = "rgb(232,210,115)"
 
 const DgodInterface = new Interface(DgodAbi);
 const CONTRACT_DGOD = new Contract(ADDRESS_DGOD,DgodInterface);
@@ -209,7 +213,91 @@ function Home() {
           BUY ON 
           <img src={CZCashLogo} style={{height:"1em",marginLeft:"0.1em",position:"relative",top:"0.1em"}} alt="CZ.Cash" />
         </a>
-        <div className="columns is-centered is-vcentered is-multiline pl-2 pr-2 mb-5">
+        {/* Rewards Block */}
+        <div className="container is-2" style={{ padding: "0 2em 2em 2em"}}>
+          <h3 className="outline-text" style={{ margin: "2rem 0 2rem 0", fontSize: "2rem", fontWeight: 'bold', color: secondaryColor,}}>
+            Rewards
+          </h3>
+          <div className="columns" style={{  border: "3px solid rgb(237, 209, 98)", backgroundColor: 'rgba(97, 89, 57, 0.4)', borderRadius: '1em', padding: "1.5em 1.5em 1.5em 1.5em", justifyContent: 'space-evenly'}}>
+            <Stat
+              color={secondaryColor}
+              title="Accumulated"
+              data={`${commify(formatEther((dogeTotalPaidWad ?? BigNumber.from("0")).mul(10**10)))} DOGE`} 
+              data2={`$ ${commify((parseFloat(formatEther((dogeTotalPaidWad ?? BigNumber.from("0")).mul(10**10))) * (dogePrice ?? 0)).toFixed(2))}`}
+            />
+            <Stat
+              color={secondaryColor}
+              title="Distributed"
+              data={`${commify(formatEther((totalRewardsPaid ?? BigNumber.from("0")).mul(10**10)))} DOGE`}
+              data2={`$ ${commify((parseFloat(formatEther((totalRewardsPaid ?? BigNumber.from("0")).mul(10**10))) * (dogePrice ?? 0)).toFixed(2))}`}
+            />
+            <Stat
+              color={secondaryColor}
+              title="Today"
+              data={`${commify(formatEther((rewardPerSecond ?? BigNumber.from("0"))?.mul(86400).mul(10**10)))} DOGE`}
+              data2={`$ ${commify((parseFloat(formatEther((rewardPerSecond ?? BigNumber.from("0")).mul(86400).mul(10**10))) * (dogePrice ?? 0)).toFixed(2))}`}
+            />
+          </div>
+          <h3 className="outline-text" style={{ margin: "2rem 0 2rem 0", fontSize: "2rem", fontWeight: 'bold', color: primaryColor,}}>
+            DogeGod Stats
+          </h3>
+          <div className="columns" style={{ border: "3px solid rgb(161, 224, 189)", backgroundColor: "rgb(42, 67, 50)", borderRadius: '1em', padding: "1.5em 1.5em 1.5em 1.5em"}}>
+            <Stat
+              color={secondaryColor}
+              title="Market Cap"
+              data={`$ ${commify(formatEther(dgodMcapWad))}`} 
+            />
+            <Stat
+              color={secondaryColor}
+              title="Price DGOD"
+              data={`$ ${commify(dgodPrice?.substring(0,10))}`} 
+            />
+            <Stat
+              color={secondaryColor}
+              title="Price % Diff"
+              data={`${weiToShortString(parseEther("100").mul(parseEther(dgodPrice)).div(parseEther(INITIAL_DGOD_PRICE)).sub(parseEther("100")),2)} %`} 
+            />
+            <Stat
+              color={secondaryColor}
+              title="Floor Price"
+              data={`$ ${dgodPriceFloor?.substring(0,10)}`} 
+            />
+            <Stat
+              color={secondaryColor}
+              title="Floor % Diff"
+              data={`${weiToShortString(parseEther("100").mul(parseEther(dgodPriceFloor)).div(parseEther(INITIAL_DGOD_PRICE_FLOOR)).sub(parseEther("100")),2)} %`} 
+            />
+          </div>
+          <h3 className="outline-text" style={{ margin: "2rem 0 2rem 0", fontSize: "2rem", fontWeight: 'bold', color: primaryColor,}}>
+            DogeGod Performance
+          </h3>
+          <div className="columns" style={{ border: "3px solid rgb(161, 224, 189)", backgroundColor: "rgb(42, 67, 50)", borderRadius: '1em', padding: "1.5em 1.5em 1.5em 1.5em"}}>
+          <Stat
+              color={secondaryColor}
+              title="Marketing"
+              data={`${commify(formatEther(marketingDogeBal ?? BigNumber.from("0")))} DGOD`} 
+              data2={`$ ${commify((parseFloat(formatEther(marketingDogeBal ?? BigNumber.from("0"))) * (dogePrice ?? 0)).toFixed(2))}`}
+            />
+            <Stat
+              color={secondaryColor}
+              title="Burned"
+              data={`${commify(formatEther(INTIAL_DGOD_SUPPLY.sub(dgodInfo?.totalSupply ?? INTIAL_DGOD_SUPPLY)))} DGOD`} 
+              data2={`$ ${commify((parseFloat(formatEther(INTIAL_DGOD_SUPPLY.sub(dgodInfo?.totalSupply ?? INTIAL_DGOD_SUPPLY))) * (dogePrice ?? 0)).toFixed(2))}`}
+            />
+            <Stat
+              color={secondaryColor}
+              title="APR"
+              data={`${weiToShortString(dgodAprWad,2)} %`} 
+            />
+            <Stat
+              color={secondaryColor}
+              title="Liquidity %"
+              data={`${weiToShortString(liqRatioWad,2)} %`} 
+              data2={`of MCAP`}
+            />
+          </div>
+        </div>
+        {/* <div className="columns is-centered is-vcentered is-multiline pl-2 pr-2 mb-5">
           <div className="stat stat-doge">
             <span className="stat-title">{tokenAmtToShortString(dogeTotalPaidWad ?? 0,8,6)}</span>
             <span className="stat-content">Total Dogecoin Rewards</span>
@@ -262,7 +350,7 @@ function Home() {
             <span className="stat-title">{weiToShortString(liqRatioWad,2)}%</span>
             <span className="stat-content">Liquidity % of MCAP</span>
           </div>
-        </div>
+        </div> */}
           <h3 className="is-size-3 m-3 mt-5">
             YOUR <span style={{color:"#FFCB16"}}>WALLET</span>
             {!!account ? (

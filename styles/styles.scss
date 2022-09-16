@@ -50,6 +50,14 @@ a.is-secondary{
 
 }
 
+.outline-text{
+  text-shadow: 1px 1px 0 black,
+    -1px -1px 0 black,  
+    1px -1px 0 black,
+    -1px 1px 0 black,
+    1px 1px 0 black;
+}
+
 .image img{
   max-width:750px;
 }
