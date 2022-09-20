@@ -218,6 +218,17 @@ function Home() {
             Your <span style={{color: secondaryColor}}>Wallet</span>{"\n"}
             {account && <span className="is-size-5 is-block" style={{marginTop:"-0.25em", textTransform: "none"}}>{shortenAddress(account)}</span>}
           </h3>
+          {account && <button
+            className="button is-dark"
+            style={{
+              border: "1px solid "+primaryColor,
+              textTransform: "uppercase",
+              backgroundColor: "#045F87"
+            }}
+            onClick={() => sendClaim()}
+          >
+            Claim Pending
+          </button>}
           {account ?
             <div className="columns" style={{  border: "3px solid rgb(237, 209, 98)", backgroundColor: 'rgba(97, 89, 57, 0.4)', borderRadius: '1em', padding: "1.5em 1.5em 1.5em 1.5em", justifyContent: 'space-evenly'}}>
               <Stat
