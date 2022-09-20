@@ -5,7 +5,7 @@ const Stat = (props) => {
     <div style={{ fontSize: "1.3rem", color: color ?? 'rgb(161,224,189)' }}>
       {title}
     </div>
-    <div style={{ fontSize: "1.6rem", fontWeight: "bolder" }}>
+    <div style={{ fontSize: "1.6rem", fontWeight: "bolder", whiteSpace: "pre-line" }}>
       {data}
     </div>
     {data2 && <div>
