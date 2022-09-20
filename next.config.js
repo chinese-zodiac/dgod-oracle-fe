@@ -3,7 +3,7 @@ const withImages = require('next-images');
 const withVideos = require('next-videos')
 
 const nextConfig = {
-  trailingSlash:true,
+  trailingSlash: true,
   webpack: function (config) {
     config.module.rules.push({
       test: /\.(eot|woff|woff2|ttf)$/,
@@ -22,4 +22,4 @@ const nextConfig = {
   }
 };
 
-module.exports = withPlugins([withImages,withVideos], nextConfig);
+module.exports = withPlugins([withImages, withVideos], nextConfig);
