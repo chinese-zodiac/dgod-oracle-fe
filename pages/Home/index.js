@@ -215,6 +215,56 @@ function Home() {
         </a>
         {/* Rewards Block */}
         <div className="container is-2" style={{ padding: "0 2em 2em 2em"}}>
+          <h3 className="outline-text" style={{ margin: "2rem 0 2rem 0", fontSize: "2rem", fontWeight: 'normal', color: 'white', textTransform: 'uppercase', whiteSpace: "pre-line"}}>
+            Your <span style={{color: secondaryColor}}>Wallet</span>{"\n"}
+            {account && <span className="is-size-5 is-block" style={{marginTop:"-0.25em", textTransform: "none"}}>{shortenAddress(account)}</span>}
+          </h3>
+          {account ?
+            <div className="columns" style={{  border: "3px solid rgb(237, 209, 98)", backgroundColor: 'rgba(97, 89, 57, 0.4)', borderRadius: '1em', padding: "1.5em 1.5em 1.5em 1.5em", justifyContent: 'space-evenly'}}>
+              <Stat
+                color={primaryColor}
+                title="Earned"
+                data={`${commify(formatEther((totalRewardsReceived).mul(10**10)))}\nDOGE`} 
+                data2={`$ ${commify((parseFloat(formatEther((totalRewardsReceived).mul(10**10))) * (dogePrice ?? 0)).toFixed(2))}`}
+              />
+              <Stat
+                color={primaryColor}
+                title="Per Day"
+                data={`${commify(formatEther((rewardPerSecond?.mul(86400).mul(combinedStakedBalance ?? 0).div(totalStaked)).mul(10**10)))}\nDOGE`} 
+                data2={`$ ${commify((parseFloat(formatEther((rewardPerSecond?.mul(86400).mul(combinedStakedBalance ?? 0).div(totalStaked)).mul(10**10))) * (dogePrice ?? 0)).toFixed(2))}`}
+              />
+              <Stat
+                color={secondaryColor}
+                title="Held"
+                data={`${commify(formatEther((accDogeBal).mul(10**10)))}\nDOGE`} 
+                data2={`$ ${commify((parseFloat(formatEther((accDogeBal).mul(10**10))) * (dogePrice ?? 0)).toFixed(2))}`}
+              />
+              <Stat
+                color={secondaryColor}
+                title="Pending"
+                data={`${commify(formatEther((pendingReward).mul(10**10)))}\nDOGE`} 
+                data2={`$ ${commify((parseFloat(formatEther((pendingReward).mul(10**10))) * (dogePrice ?? 0)).toFixed(2))}`}
+              />
+              <Stat
+                color={primaryColor}
+                title="DGOD Held"
+                data={`${commify(parseFloat(formatEther(accDgodBal)).toFixed(2))}\nDGOD`} 
+                data2={`$ ${commify((parseFloat(formatEther(accDgodBal)) * (dgodPrice ?? 0)).toFixed(2))}`}
+              />
+            </div>
+          : <button
+            className="px-6 py-3 button is-dark"
+            style={{
+              // background: "transparent",
+              border: "2px solid rgb(18, 106, 133)",
+              color: "white",
+              fontSize: "1.5rem",
+              textTransform: "uppercase",
+              borderRadius: "2em",
+            }}
+          >
+            Connect Wallet
+          </button>}
           <h3 className="outline-text" style={{ margin: "2rem 0 2rem 0", fontSize: "2rem", fontWeight: 'bold', color: secondaryColor,}}>
             Rewards
           </h3>
@@ -245,7 +295,7 @@ function Home() {
             <Stat
               color={secondaryColor}
               title="Market Cap"
-              data={`$ ${commify(formatEther(dgodMcapWad))}`} 
+              data={`$ ${commify(formatEther(dgodMcapWad)).split(".")[0]}`} 
             />
             <Stat
               color={secondaryColor}
@@ -275,13 +325,13 @@ function Home() {
           <Stat
               color={secondaryColor}
               title="Marketing"
-              data={`${commify(formatEther(marketingDogeBal ?? BigNumber.from("0")))} DGOD`} 
-              data2={`$ ${commify((parseFloat(formatEther(marketingDogeBal ?? BigNumber.from("0"))) * (dogePrice ?? 0)).toFixed(2))}`}
+              data={`${commify(formatEther((marketingDogeBal ?? BigNumber.from("0")).mul(10**10))).split(".")[0]} DOGE`} 
+              data2={`$ ${commify((parseFloat(formatEther((marketingDogeBal ?? BigNumber.from("0")).mul(10**10))) * (dogePrice ?? 0)).toFixed(2))}`}
             />
             <Stat
               color={secondaryColor}
               title="Burned"
-              data={`${commify(formatEther(INTIAL_DGOD_SUPPLY.sub(dgodInfo?.totalSupply ?? INTIAL_DGOD_SUPPLY)))} DGOD`} 
+              data={`${commify(formatEther(INTIAL_DGOD_SUPPLY.sub(dgodInfo?.totalSupply ?? INTIAL_DGOD_SUPPLY)).split(".")[0])} DGOD`} 
               data2={`$ ${commify((parseFloat(formatEther(INTIAL_DGOD_SUPPLY.sub(dgodInfo?.totalSupply ?? INTIAL_DGOD_SUPPLY))) * (dogePrice ?? 0)).toFixed(2))}`}
             />
             <Stat
