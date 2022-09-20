@@ -1,7 +1,7 @@
 {
   "name": "dgg-fe",
   "version": "1.0.0",
-  "homepage": ".",
+  "homepage": "./",
   "description": "DogeGod | The most profitable source of Dogecoin on the planet.",
   "license": "GPL-3.0",
   "scripts": {
