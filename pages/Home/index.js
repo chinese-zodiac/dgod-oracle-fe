@@ -223,8 +223,8 @@ function Home() {
               <Stat
                 color={primaryColor}
                 title="Earned"
-                data={`${commify(formatEther((totalRewardsReceived).mul(10**10)))}\nDOGE`} 
-                data2={`$ ${commify((parseFloat(formatEther((totalRewardsReceived).mul(10**10))) * (dogePrice ?? 0)).toFixed(2))}`}
+                data={`${commify(formatEther((totalRewardsReceived ?? BigNumber.from("0")).mul(10**10)))}\nDOGE`} 
+                data2={`$ ${commify((parseFloat(formatEther((totalRewardsReceived ?? BigNumber.from("0")).mul(10**10))) * (dogePrice ?? 0)).toFixed(2))}`}
               />
               <Stat
                 color={primaryColor}
@@ -235,34 +235,35 @@ function Home() {
               <Stat
                 color={secondaryColor}
                 title="Held"
-                data={`${commify(formatEther((accDogeBal).mul(10**10)))}\nDOGE`} 
-                data2={`$ ${commify((parseFloat(formatEther((accDogeBal).mul(10**10))) * (dogePrice ?? 0)).toFixed(2))}`}
+                data={`${commify(formatEther((accDogeBal??BigNumber.from("0")).mul(10**10)))}\nDOGE`} 
+                data2={`$ ${commify((parseFloat(formatEther((accDogeBal??BigNumber.from("0")).mul(10**10))) * (dogePrice ?? 0)).toFixed(2))}`}
               />
               <Stat
                 color={secondaryColor}
                 title="Pending"
-                data={`${commify(formatEther((pendingReward).mul(10**10)))}\nDOGE`} 
-                data2={`$ ${commify((parseFloat(formatEther((pendingReward).mul(10**10))) * (dogePrice ?? 0)).toFixed(2))}`}
+                data={`${commify(formatEther((pendingReward ?? BigNumber.from("0")).mul(10**10)))}\nDOGE`} 
+                data2={`$ ${commify((parseFloat(formatEther((pendingReward ?? BigNumber.from("0")).mul(10**10))) * (dogePrice ?? 0)).toFixed(2))}`}
               />
               <Stat
                 color={primaryColor}
                 title="DGOD Held"
-                data={`${commify(parseFloat(formatEther(accDgodBal)).toFixed(2))}\nDGOD`} 
-                data2={`$ ${commify((parseFloat(formatEther(accDgodBal)) * (dgodPrice ?? 0)).toFixed(2))}`}
+                data={`${commify(parseFloat(formatEther(accDgodBal ?? BigNumber.from("0"))).toFixed(2))}\nDGOD`} 
+                data2={`$ ${commify((parseFloat(formatEther(accDgodBal ?? BigNumber.from("0"))) * (dgodPrice ?? 0)).toFixed(2))}`}
               />
             </div>
           : <button
             className="px-6 py-3 button is-dark"
             style={{
-              // background: "transparent",
               border: "2px solid rgb(18, 106, 133)",
               color: "white",
               fontSize: "1.5rem",
               textTransform: "uppercase",
               borderRadius: "2em",
             }}
+
+            onClick={e => window.scrollTo({top: 0, behaviour: "smooth"})}
           >
-            Connect Wallet
+            Connect on top
           </button>}
           <h3 className="outline-text" style={{ margin: "2rem 0 2rem 0", fontSize: "2rem", fontWeight: 'bold', color: secondaryColor,}}>
             Rewards
