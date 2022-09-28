@@ -343,7 +343,7 @@ function Home() {
               color={secondaryColor}
               title="Burned"
               primaryText={`${commify(formatEther(INTIAL_DGOD_SUPPLY.sub(dgodInfo?.totalSupply ?? INTIAL_DGOD_SUPPLY)).split(".")[0])} DGOD`}
-              secondaryText={`$ ${commify((parseFloat(formatEther(INTIAL_DGOD_SUPPLY.sub(dgodInfo?.totalSupply ?? INTIAL_DGOD_SUPPLY))) * (dogePrice ?? 0)).toFixed(2))}`}
+              secondaryText={`$ ${commify((parseFloat(formatEther(INTIAL_DGOD_SUPPLY.sub(dgodInfo?.totalSupply ?? INTIAL_DGOD_SUPPLY))) * (dgodPrice ?? 0)).toFixed(2))}`}
             />
             <Stat
               color={secondaryColor}
