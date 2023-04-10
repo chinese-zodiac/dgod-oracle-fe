@@ -1,31 +1,31 @@
 
-import { useState, useEffect } from 'react';
-import Web3ModalButton from '../../components/Web3ModalButton';
-import Footer from '../../components/Footer';
-import "./index.module.scss";
-import { useEthers, useToken, useContractFunction, useCall, useTokenBalance, useTokenAllowance, useEtherBalance } from '@usedapp/core'
 import { useCoingeckoPrice } from '@usedapp/coingecko';
-import { utils, Contract, BigNumber } from 'ethers';
-import useAutoRewardPool from "../../hooks/useAutoRewardPool";
-import useDgodLock from "../../hooks/useDgodLock";
-import useCurrentEpoch from "../../hooks/useCurrentEpoch";
-import DgodLogo from '../../public/static/assets/logo.png';
-import OracleDogo from '../../public/static/assets/images/oracle-dogo.png';
-import DogeLogo from '../../public/static/assets/images/dogecoin-1.png';
-import HeaderBanner from '../../public/static/assets/images/headerbanner.png';
-import CZCashLogo from '../../public/static/assets/images/czcash.png';
-import TopVideo from '../../public/static/assets/vids/bgv3.mp4';
-import { shortenAddress } from '@usedapp/core'
-import IERC20Abi from "../../abi/IERC20.json";
+import { shortenAddress, useContractFunction, useEthers, useToken, useTokenAllowance, useTokenBalance } from '@usedapp/core';
+import { BigNumber, Contract, constants, utils } from 'ethers';
+import { useEffect, useState } from 'react';
+import AutoRewardPoolAbi from "../../abi/AutoRewardPool.json";
 import DgodAbi from "../../abi/Dgod.json";
 import DgodLockAbi from "../../abi/DgodLock.json";
-import AutoRewardPoolAbi from "../../abi/AutoRewardPool.json";
-import { SOCIAL_TELEGRAM } from '../../constants/social';
-import { deltaCountdown } from '../../utils/timeDisplay';
-import { weiToShortString, tokenAmtToShortString } from '../../utils/bnDisplay';
-import { ADDRESS_TEAM, ADDRESS_MARKETING, ADDRESS_DOGE, ADDRESS_DGOD, ADDRESS_AUTO_REWARD_POOL, ADDRESS_DGOD_LOCK, ADDRESS_DGODCZUSD_PAIR, ADDRESS_CZUSD } from '../../constants/addresses';
-import { czCashBuyLink } from '../../utils/dexBuyLink';
+import DgodWheelAbi from "../../abi/DgodWheel.json";
+import IERC20Abi from "../../abi/IERC20.json";
+import Footer from '../../components/Footer';
 import Stat from '../../components/Stat';
+import Web3ModalButton from '../../components/Web3ModalButton';
+import { ADDRESS_AUTO_REWARD_POOL, ADDRESS_CZUSD, ADDRESS_DGOD, ADDRESS_DGODCZUSD_PAIR, ADDRESS_DGOD_LOCK, ADDRESS_DOGE, ADDRESS_MARKETING, ADDRESS_TEAM, ADDRESS_WHEEL } from '../../constants/addresses';
+import useAutoRewardPool from "../../hooks/useAutoRewardPool";
+import useCurrentEpoch from "../../hooks/useCurrentEpoch";
+import useDgodLock from "../../hooks/useDgodLock";
+import CZCashLogo from '../../public/static/assets/images/czcash.png';
+import DogeLogo from '../../public/static/assets/images/dogecoin-1.png';
+import HeaderBanner from '../../public/static/assets/images/headerbanner.png';
+import OracleDogo from '../../public/static/assets/images/oracle-dogo.png';
+import DgodLogo from '../../public/static/assets/logo.png';
+import TopVideo from '../../public/static/assets/vids/bgv3.mp4';
+import WheelVideo from '../../public/static/assets/vids/dgod-delivery.mp4';
+import { weiToShortString } from '../../utils/bnDisplay';
+import { czCashBuyLink } from '../../utils/dexBuyLink';
+import { deltaCountdown } from '../../utils/timeDisplay';
+import "./index.module.scss";
 
 
 const { formatEther, commify, parseEther, Interface } = utils;
@@ -46,6 +46,9 @@ const Ierc20Interface = new Interface(IERC20Abi);
 const CONTRACT_DOGE = new Contract(ADDRESS_DOGE, Ierc20Interface);
 const CONTRACT_DGODCZUSD_PAIR = new Contract(ADDRESS_DGODCZUSD_PAIR, Ierc20Interface);
 
+const DgodWheelInterface = new Interface(DgodWheelAbi);
+const CONTRACT_DGOD_WHEEL = new Contract(ADDRESS_WHEEL, DgodWheelInterface);
+
 
 
 const displayWad = (wad) => !!wad ? Number(formatEther(wad)).toFixed(2) : "...";
@@ -56,6 +59,8 @@ const INTIAL_DGOD_SUPPLY = parseEther("10000000000");
 
 function Home() {
 
+  const [tickets, setTickets] = useState(1);
+
   const { account, library, chainId } = useEthers();
 
   const { state: stateClaim, send: sendClaim } = useContractFunction(
@@ -65,6 +70,17 @@ function Home() {
   const { state: stateWithdraw, send: sendWithdraw } = useContractFunction(
     CONTRACT_DGOD_LOCK,
     'claimDgg');
+
+  const { state: stateApprove, send: sendApprove } = useContractFunction(
+    CONTRACT_DGOD,
+    'approve'
+  );
+
+  const allowance = useTokenAllowance(ADDRESS_DGOD, account, ADDRESS_WHEEL)
+
+  const { state: stateRoll, send: sendRoll } = useContractFunction(
+    CONTRACT_DGOD_WHEEL,
+    'roll');
 
   const dgodInfo = useToken(ADDRESS_DGOD);
   const dgodCzusdPairInfo = useToken(ADDRESS_DGODCZUSD_PAIR);
@@ -240,8 +256,8 @@ function Home() {
               <Stat
                 color={primaryColor}
                 title="Per Day"
-                primaryText={`${commify(formatEther((rewardPerSecond?.mul(86400).mul(combinedStakedBalance ?? 0).div(totalStaked)).mul(10 ** 10)))}\nDOGE`}
-                secondaryText={`$ ${commify((parseFloat(formatEther((rewardPerSecond?.mul(86400).mul(combinedStakedBalance ?? 0).div(totalStaked)).mul(10 ** 10))) * (dogePrice ?? 0)).toFixed(2))}`}
+                primaryText={`${commify(formatEther((rewardPerSecond?.mul(86400)?.mul(combinedStakedBalance ?? 0)?.div(totalStaked) ?? BigNumber.from("0")).mul(10 ** 10)))}\nDOGE`}
+                secondaryText={`$ ${commify((parseFloat(formatEther((rewardPerSecond?.mul(86400)?.mul(combinedStakedBalance ?? 0).div(totalStaked)).mul(10 ** 10))) * (dogePrice ?? 0)).toFixed(2))}`}
               />
               <Stat
                 color={secondaryColor}
@@ -471,6 +487,73 @@ function Home() {
         {/*
         <div id="dexscreener-embed" className='mt-5'><iframe src={`https://dexscreener.com/bsc/${ADDRESS_DGODCZUSD_PAIR}?embed=1&theme=dark&info=0`}></iframe></div>
         */}
+        <h3 className="outline-text" style={{ margin: "2rem 0 2rem 0", fontSize: "2rem", fontWeight: 'bold', color: primaryColor, }}>
+          Play the DGOD Wheel!
+        </h3>
+        <video poster={HeaderBanner} preload="none" autoPlay loop muted style={{ display: "block", objectFit: "cover", objectPosition: "center", width: "100vw", maxWidth: "400px", height: 'auto', marginLeft: 'auto', marginRight: 'auto', border: 'solid 2px rgb(18, 106, 133)' }}>
+          <source src={WheelVideo} type="video/mp4" />
+        </video>
+        <br />
+        <div>
+          {tickets} TICKET = ${tickets * 10} = {Math.floor(10 * tickets / dgodPrice)} DGOD
+        </div>
+        <div>
+          <button onClick={() => {
+            setTickets(tickets + 1)
+          }}>+1</button>
+          <button onClick={() => {
+            if (tickets > 0) {
+              setTickets(tickets - 1)
+            } else {
+              setTickets(1);
+            }
+          }}>-1</button>
+        </div>
+        <br />
+        {account ? (allowance?.gt(parseEther("100000000000")) ? (<><button
+          className="button is-dark"
+          style={{
+            border: "1px solid " + primaryColor,
+            textTransform: "uppercase",
+            backgroundColor: "#045F87"
+          }}
+          onClick={() => sendRoll(parseEther(Math.floor(10 * tickets / dgodPrice).toString()))}
+        >
+          Buy {tickets} Tickets
+        </button>
+          {stateRoll?.transaction?.hash && (<>
+            <p>TX Hash: <a target="_blank" href={"https://bscscan.com/tx/" + stateRoll.transaction.hash}>{stateRoll.transaction.hash}</a></p>
+            <p>Share this tx hash on t.me/dogegod_token to use your tickets.</p>
+          </>)}
+        </>
+        ) : (<button
+          className="button is-dark"
+          style={{
+            border: "1px solid " + primaryColor,
+            textTransform: "uppercase",
+            backgroundColor: "#045F87"
+          }}
+          onClick={() => sendApprove(ADDRESS_WHEEL, constants.MaxUint256)}
+        >
+          Approve DGOD for Roll
+        </button>
+
+        )
+
+        ) : (<button
+          className="px-6 py-3 button is-dark"
+          style={{
+            border: "2px solid rgb(18, 106, 133)",
+            color: "white",
+            fontSize: "1.5rem",
+            textTransform: "uppercase",
+            borderRadius: "2em",
+          }}
+
+          onClick={e => window.scrollTo({ top: 0, behaviour: "smooth" })}
+        >
+          Connect on top
+        </button>)}
       </div>
     </section>
 
