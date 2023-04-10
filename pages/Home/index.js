@@ -490,7 +490,7 @@ function Home() {
         <h3 className="outline-text" style={{ margin: "2rem 0 2rem 0", fontSize: "2rem", fontWeight: 'bold', color: primaryColor, }}>
           Play the DGOD Wheel!
         </h3>
-        <video poster={HeaderBanner} preload="none" autoPlay loop muted style={{ display: "block", objectFit: "cover", objectPosition: "center", width: "100vw", maxWidth: "400px", height: 'auto', marginLeft: 'auto', marginRight: 'auto', border: 'solid 2px rgb(18, 106, 133)' }}>
+        <video preload="none" autoPlay loop muted style={{ display: "block", objectFit: "cover", objectPosition: "center", width: "100vw", maxWidth: "400px", height: 'auto', marginLeft: 'auto', marginRight: 'auto', border: 'solid 2px rgb(18, 106, 133)' }}>
           <source src={WheelVideo} type="video/mp4" />
         </video>
         <br />
