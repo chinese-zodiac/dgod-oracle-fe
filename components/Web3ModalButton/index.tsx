@@ -1,13 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import type { ChainId } from '@usedapp/core'
-import { useEthers, shortenAddress, useLookupAddress, useEtherBalance, useTokenBalance  } from '@usedapp/core'
-import styled from 'styled-components'
-import Web3Modal from 'web3modal'
-import { AccountModal } from '../AccountModal'
-import WalletConnectProvider from '@walletconnect/web3-provider'
-import { parseEther, formatEther } from '@ethersproject/units'
+import { useEthers, BSC  } from '@usedapp/core'
 import MetamaskLogo from '../../public/static/assets/images/metamask.svg';
 import WalletConnectLogo from '../../public/static/assets/images/walletconnect.svg';
+import { WalletConnectV2Connector } from '@usedapp/wallet-connect-v2-connector'
 
 const INJECTED_STATE = {
   PENDING: 'PENDING',
@@ -16,12 +11,13 @@ const INJECTED_STATE = {
 };
 
 const Web3ModalButton = ({className}) => {
-  const { account, activate, deactivate, chainId } = useEthers();
+  const { account, activate, activateBrowserWallet, deactivate, chainId } = useEthers();
 
   const [injectedState,setInjectedState] = useState(INJECTED_STATE.PENDING);
 
   const [activateError, setActivateError] = useState('');
   const { error } = useEthers();
+  const [isLoadingWalletConnect, setIsLoadingWalletConnect] = useState(false);
 
   useEffect(()=>{
     if(!!window?.ethereum?.networkVersion || !!window?.web3) {
@@ -39,38 +35,25 @@ const Web3ModalButton = ({className}) => {
   }, [error])
 
   const activateProvider = async (providerId: string) => {
-    const providerOptions = {
-      injected: {
-        display: {
-          name: 'Metamask',
-          description: 'Connect with the provider in your Browser',
-        },
-        package: null,
-      },
-      walletconnect: {
-        package: WalletConnectProvider,
-        options: {
-          bridge: 'https://bridge.walletconnect.org',
-          rpc: {
-            56: "https://rpc.ankr.com/bsc"
-          }
-        },
-      },
-    }
-
-    const web3Modal = new Web3Modal({
-      network:"",
-      cacheProvider: false,
-      providerOptions,
-    });
+    setIsLoadingWalletConnect(true);
     try {
-      web3Modal.clearCachedProvider();
-      const provider = await web3Modal.connectTo(providerId);
-      await activate(provider)
+      deactivate();
+      if(providerId == 'injected') {
+        activateBrowserWallet();
+      } else {
+        await activate(new WalletConnectV2Connector({
+          projectId: '237f7da7013dfa23795692a295ae5f36',
+          chains: [BSC],
+          rpcMap:{
+            56:'https://rpc.ankr.com/bsc'
+          }
+        }))
+      }
       setActivateError('')
     } catch (error: any) {
       setActivateError(error.message)
     }
+    setIsLoadingWalletConnect(false);
   }
 
   return (
