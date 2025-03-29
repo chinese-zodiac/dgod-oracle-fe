@@ -11,7 +11,7 @@ import '../styles/styles.scss';
 const config = {
   readOnlyChainId: BSC.chainId,
   readOnlyUrls: {
-    [BSC.chainId]: 'https://bscrpc.com'
+    [BSC.chainId]: 'https://bsc-dataseed1.binance.org/'
   },
   networks:[BSC]
 }
