@@ -9,7 +9,7 @@
   },
   "scripts": {
     "dev": "next",
-    "build": "next build",
+    "build": "next build && next export",
     "start": "next start",
     "export": "next export",
     "prettier": "prettier --write '**/*.js{x,}'"
